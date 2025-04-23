@@ -1,0 +1,27 @@
+{
+  "titles": {
+    "login": "Вход в аккаунт"
+  },
+  "buttons": {
+    "submit": "Войти",
+    "return": "Вернуться на главную"
+  },
+  "labels": {
+    "username": "Электронная почта",
+    "password": "Пароль",
+    "remember_me": "Запомнить меня"
+  },
+  "languages": {
+    "ru": "Русский",
+    "en": "English"
+  },
+  "notifications": {
+    "success": "Успех",
+    "error": "Ошибка",
+    "message": "Сообщение",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "logged_in": "Вы успешно вошли в аккаунт",
+    "login_failed": "Не удалось войти в аккаунт"
+  }
+}

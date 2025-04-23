@@ -1,0 +1,54 @@
+.notification {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 106px;
+    gap: 10px;
+    padding: 12px 24px;
+    border-left: 6px solid #FF5757;
+    border-radius: 6px;
+    background: #FFFFFF;
+}
+
+.notification_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.notification_description {
+
+}
+
+.error {
+    color: #FF5757
+}
+
+.warning {
+    color: #E78400
+}
+
+.message {
+    color: #3A3A3A
+}
+
+.info {
+    color: #2196F3
+}
+
+.success {
+    color: #39882C
+}
+
+.close_button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.flex_container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}

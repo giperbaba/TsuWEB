@@ -1,0 +1,31 @@
+{
+  "titles": {
+    "login": "Login to account"
+  },
+  "buttons": {
+    "submit": "Login",
+    "return": "Return to home"
+  },
+  "labels": {
+    "username": "Email",
+    "password": "Password",
+    "remember_me": "Remember me"
+  },
+  "languages": {
+    "ru": "Русский",
+    "en": "English"
+  },
+  "errors": {
+    "not_found": "Page not found",
+    "happened": "What happened?"
+  },
+  "notifications": {
+    "success": "Success",
+    "error": "Error",
+    "message": "Message",
+    "warning": "Warning",
+    "info": "Information",
+    "logged_in": "You have successfully logged in to your account",
+    "login_failed": "Failed to log in to your account"
+  }
+}

@@ -1,0 +1,15 @@
+.switch_container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.label {
+    font-family: Raleway, serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: #949494;
+    font-variant-numeric-figure: lining-nums;
+    font-variant-numeric-spacing: proportional-nums;
+}

@@ -1,0 +1,29 @@
+.registration_form {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    width: 38%;
+    max-height: 60%;
+    top: 314px;
+    left: 1098px;
+    border-radius: 20px;
+    gap: 30px;
+    padding: 25px 28px;
+}
+
+.title {
+    display: flex;
+    align-self: center;
+    font-family: Raleway, serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 100%;
+    text-align: center;
+    color: #3A3A3A;
+}
+
+@media screen and (max-width: 800px) {
+    .registration_form {
+        width: 90%;
+    }
+}
