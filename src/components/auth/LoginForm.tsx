@@ -7,7 +7,7 @@ import {FormEvent, useState} from "react";
 import {AuthService} from "../../services/auth.service.ts";
 import {useRequest} from "../../hooks/useRequest.ts";
 import { useNotification } from "../../context/NotificationContext.tsx";
-//import {setCookie} from "../../auth/cookiesService.js";
+import { setAccessToken, setRefreshToken } from "../../auth/cookiesService.ts";
 
 export const LoginForm = () => {
     const {t} = useTranslation('common');
@@ -27,11 +27,10 @@ export const LoginForm = () => {
                 errorMessage: t("notifications.login_failed"),
                 onSuccess: (data) => {
                     if (data.loginSucceeded) {
-                        //setCookie('accessToken', data.accessToken);
-                        //setCookie('refreshToken', data.refreshToken);
+                        setAccessToken(data.accessToken);
+                        setRefreshToken(data.refreshToken);
                         notify("success", t("notifications.logged_in"));
-                    }
-                    else {
+                    } else {
                         notify("error", t("notifications.login_failed"));
                     }
                 }

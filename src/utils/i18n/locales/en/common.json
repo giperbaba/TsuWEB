@@ -25,7 +25,9 @@
     "message": "Message",
     "warning": "Warning",
     "info": "Information",
+
     "logged_in": "You have successfully logged in to your account",
-    "login_failed": "Failed to log in to your account"
+    "login_failed": "Failed to log in to your account",
+    "unauthorized": "Please, authorize again"
   }
 }
