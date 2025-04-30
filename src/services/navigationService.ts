@@ -1,5 +1,5 @@
 export const redirectToLogin = () => {
-    window.location.href = '/';
+    window.location.href = '/login';
 };
 
 export const redirectToServerError = () => {

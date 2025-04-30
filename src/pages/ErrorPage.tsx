@@ -34,7 +34,7 @@ export const ErrorPage = (props: ErrorPageProps) => {
                         <p className={styles.error_text}>{text}</p>
                         <p className={styles.error_text}>{translate}</p>
                     </div>
-                    <ItemButton variant={"primary"} click={() => navigate("/")}>Вернуться на главную</ItemButton>
+                    <ItemButton variant={"primary"} click={() => navigate("/profile")}>Вернуться на главную</ItemButton>
                 </div>
             </>
 

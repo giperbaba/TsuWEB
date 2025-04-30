@@ -1,6 +1,7 @@
 import styles from "./ItemNotification.module.css"
 import {Icons} from "../../../../assets/icons";
 import {useTranslation} from "react-i18next";
+import Close from "../../../../assets/icons/Close.tsx";
 
 interface NotificationProps {
     type: 'error' | 'info' | 'warning' | 'success' | 'message'
@@ -54,7 +55,7 @@ export const ItemNotification = ({ type, text, onClose }: NotificationProps) => 
                     {icon}
                     <p className={styles[style]}>{t(labelKey)}</p>
                 </div>
-                <Icons.Close onClick={onClose} strokeColor={color} className={styles.close_button} />
+                <Close onClick={onClose} strokeColor={color} className={styles.close_button} />
             </div>
             <p className={styles.notification_description}>{text}</p>
         </div>
