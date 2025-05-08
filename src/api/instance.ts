@@ -1,99 +1,83 @@
-import axios from 'axios'
-import {
-    getAccessToken,
-    getRefreshToken,
-    removeAccessToken, removeRefreshToken,
-    setAccessToken,
-    setRefreshToken
-} from "../auth/cookiesService.ts";
-import {redirectToLogin, redirectToServerError} from "../services/navigationService.ts";
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import { getAccessToken, getRefreshToken, removeAccessToken, removeRefreshToken, setAccessToken, setRefreshToken } from "../auth/cookiesService.ts";
+import { redirectToLogin, redirectToServerError } from "../services/navigationService.ts";
 
 const API_URL = 'https://lk-stud.api.kreosoft.space/api';
 
-
-export const instance = axios.create({
+const instance: AxiosInstance = axios.create({
     baseURL: API_URL,
     headers: {
         Accept: 'application/json',
     },
-})
+});
 
-//request interceptor
+// request interceptor
 instance.interceptors.request.use(
-    (config) => {
+    (config: InternalAxiosRequestConfig) => {
         const token = getAccessToken();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
-    ( error ) => { Promise.reject(error) },
-)
+    (error) => Promise.reject(error)
+);
 
-//response interceptor
-let isRefreshing = false;
-let failedQueue: any[] = [];
-
-const processQueue = (error: any, token: string | null = null) => {
-    failedQueue.forEach(prom => {
-        if (error) prom.reject(error);
-        else prom.resolve(token);
-    });
-    failedQueue = [];
-};
-
+// response interceptor
 instance.interceptors.response.use(
     (response) => response,
-    async (error) => {
-        const request = error.config;
+    async (error: AxiosError) => {
+        const originalRequest: any = error.config;
 
-        if (error.response?.status === 401 && !request._retry) {
-            if (isRefreshing) {
-                return new Promise((resolve, reject) => {
-                    failedQueue.push({ resolve, reject })
-                })
-                    .then((token) => {
-                        request.headers.Authorization = `Bearer ${token}`;
-                        return axios(request);
-                    })
-                    .catch((error) => Promise.reject(error));
-            }
-            request._retry = true;
-            isRefreshing = true;
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
 
-            const token = getRefreshToken();
+            const refreshToken = getRefreshToken();
 
-            if (!token) {
+            if (!refreshToken) {
                 removeAccessToken();
-                redirectToLogin();
+                removeRefreshToken();
+                //redirectToLogin();
                 return Promise.reject(error);
             }
 
             try {
-                const response = await instance.post(`/Auth/refresh`, {
-                    token
-                });
-
-                const newAccessToken = response.data.accessToken;
-                const newRefreshToken = response.data.refreshToken;
-                setAccessToken(newAccessToken);
+                const { accessToken, refreshToken: newRefreshToken } = await refreshTokens(refreshToken);
+                setAccessToken(accessToken);
                 setRefreshToken(newRefreshToken);
 
-                processQueue(null, newAccessToken);
-
-                request.headers.Authorization = `Bearer ${newAccessToken}`;
-                return axios(request);
-            } catch (error) {
-                processQueue(error);
-                removeAccessToken()
-                removeRefreshToken()
-                return Promise.reject(error);
-            } finally {
-                isRefreshing = false;
+                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                return instance(originalRequest);
+            }
+            catch (refreshError) {
+                removeAccessToken();
+                removeRefreshToken();
+                redirectToLogin();
+                return Promise.reject(refreshError);
             }
         }
-        else if (error.response?.status === 500) {
+
+        if (error.response?.status === 500) {
             redirectToServerError();
         }
+
+        return Promise.reject(error);
     }
-)
+);
+
+export default instance;
+
+interface RefreshResponse {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export async function refreshTokens(refreshToken: string): Promise<RefreshResponse> {
+    const response = await axios.post<RefreshResponse>(`${API_URL}/Auth/refresh`, {
+        refreshToken
+    }, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    return response.data;
+}

@@ -1,4 +1,4 @@
-import { instance } from "../api/instance.ts";
+import instance from "../api/instance.ts";
 
 export interface LoginDto {
     email: string;

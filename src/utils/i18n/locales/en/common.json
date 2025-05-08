@@ -36,5 +36,34 @@
     "certificates": "Certificates",
     "services": "Useful services",
     "events": "Events"
+  },
+  "profile": {
+    "profile": "Profile",
+    "personal_data": "Personal data",
+    "gender": "Gender",
+    "birthday": "Date of birth",
+    "citizenship": "Citizenship",
+    "snils": "SNILS",
+    "email": "Email",
+
+    "contacts": "Contacts",
+    "phone": "Phone",
+    "additional_email": "Additional E-mail",
+    "address": "Address"
+  },
+  "education": {
+    "education": "Education",
+    "years": "Years of study",
+    "form": "Form of study",
+    "faculty": "Faculty",
+    "direction": "Direction",
+    "profile": "Profile",
+    "course": "Course",
+    "num": "Record book number",
+    "base": "Base",
+    "group": "Group"
+  },
+  "employee": {
+    "work": "Work"
   }
 }

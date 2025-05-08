@@ -1,4 +1,4 @@
-import {instance} from "../api/instance.ts";
+import instance from "../api/instance.ts";
 
 export enum Gender {
     Male = 'Male',
@@ -68,12 +68,12 @@ interface ContactDto {
     type: ContactTypes;
 }
 
-interface BaseDictionaryDto {
+export interface BaseDictionaryDto {
     id: string;
     name: string | null;
 }
 
-interface EducationEntryDto {
+export interface EducationEntryDto {
     id: string;
     faculty: BaseDictionaryDto;
     group: BaseDictionaryDto;
@@ -137,6 +137,6 @@ export interface EmployeeDto {
 export const ProfileService = {
     getProfile: () => instance.get<ProfileDto>('/Profile'),
     getStudentInfo: () => instance.get<StudentDto>('/Profile/student'),
-    getEmployeeInfo: () => instance.get<EducationEntryDto>('/EducationEntry'),
+    getEmployeeInfo: () => instance.get<EmployeeDto>('/Profile/employee'),
     updateAvatar: (fileId: string) => instance.put('/Profile/avatar', fileId),
 };

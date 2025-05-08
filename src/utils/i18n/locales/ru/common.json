@@ -32,5 +32,34 @@
     "certificates": "Справки",
     "services": "Полезные сервисы",
     "events": "Мероприятия"
+  },
+  "profile": {
+    "profile": "Профиль",
+    "personal_data": "Личные данные",
+    "gender": "Пол",
+    "birthday": "Дата рождения",
+    "citizenship": "Гражданство",
+    "snils": "СНИЛС",
+    "email": "Email",
+
+    "contacts": "Контакты",
+    "phone": "Телефон",
+    "additional_email": "Дополнительный E-mail:",
+    "address": "Адрес"
+  },
+  "education": {
+    "education": "Образование",
+    "years": "Года обучения",
+    "form": "Форма обучения",
+    "faculty": "Факультет",
+    "direction": "Направление",
+    "profile": "Профиль",
+    "course": "Курс",
+    "num": "Номер зачетной книжки",
+    "base": "База",
+    "group": "Группа"
+  },
+  "employee": {
+    "work": "Работа"
   }
 }

@@ -1,5 +1,5 @@
 import "./utils/i18n/config.ts";
-import { Routes, Route } from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import { AuthorizationPage } from "./pages/AuthorizationPage.tsx";
 import { ErrorPage } from "./pages/ErrorPage.tsx";
 import {ProfilePage} from "./pages/ProfilePage.tsx";
@@ -12,12 +12,11 @@ import {MainMenuLayout} from "./components/common/ui/menu/MainMenuLayout.tsx"; /
 function App() {
     return (
         <Routes>
-            {/* Страницы без меню */}
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<AuthorizationPage />} />
             <Route path="/internalservererror" element={<ErrorPage errorCode="500" />} />
             <Route path="*" element={<ErrorPage errorCode="404" />} />
 
-            {/* Страницы с меню */}
             <Route element={<MainMenuLayout />}>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/admin" element={<AdministrationPage />} />
