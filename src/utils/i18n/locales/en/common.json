@@ -49,7 +49,9 @@
     "contacts": "Contacts",
     "phone": "Phone",
     "additional_email": "Additional E-mail",
-    "address": "Address"
+    "address": "Address",
+    "social_media": "Social media",
+    "add_info": "Additional information"
   },
   "education": {
     "education": "Education",
@@ -64,6 +66,14 @@
     "group": "Group"
   },
   "employee": {
-    "work": "Work"
+    "work": "Work",
+    "experience": "Experience",
+    "view": "View of employment",
+    "rate": "bet",
+    "place": "Place of work",
+    "type": "type of position",
+    "direction": "direction",
+    "date_start": "Date of employment",
+    "date_end": "Date of dismissal"
   }
 }

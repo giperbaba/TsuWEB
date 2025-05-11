@@ -37,10 +37,10 @@ export enum UserType {
 }
 
 export enum EmploymentType {
-    MainPlace = 'MainPlace',
-    PartTime = 'PartTime',
-    InnerPartTime = 'InnerPartTime',
-    Freelance = 'Freelance',
+    MainPlace = 'Основное место работы',
+    PartTime = 'Неполный рабочий день',
+    InnerPartTime = 'Внутренний неполный рабочий день',
+    Freelance = 'Фриланс',
 }
 
 interface DepartmentDto {
@@ -90,14 +90,14 @@ export interface EducationEntryDto {
     admissionYear: number;
 }
 
-interface ExperianceDto {
+export interface ExperienceDto {
     id: string;
     years: number;
     months: number;
     type: string;
 }
 
-interface EmployeePostDto {
+export interface EmployeePostDto {
     id: string;
     rate: number;
     departments: DepartmentDto[];
@@ -130,8 +130,8 @@ export interface StudentDto {
 
 export interface EmployeeDto {
     id: string;
-    experience: ExperianceDto;
-    posts: EmployeePostDto;
+    experience: ExperienceDto[];
+    posts: EmployeePostDto[];
 }
 
 export const ProfileService = {

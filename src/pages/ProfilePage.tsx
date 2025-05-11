@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { ProfileDto, ProfileService } from "../services/profile.service";
-import { FileService } from "../services/file.service";
+import {useEffect, useState} from "react";
+import {ContactTypes, ProfileDto, ProfileService} from "../services/profile.service";
+import {FileService} from "../services/file.service";
 import styles from "./styles/ProfilePage.module.css";
 import {useTranslation} from "react-i18next";
 import {ProfileTabs} from "../components/profile/ProfileTabs.tsx";
@@ -15,6 +15,7 @@ export const ProfilePage = () => {
             try {
                 const { data } = await ProfileService.getProfile();
                 setProfile(data);
+                console.log(data);
 
                 if (!data.avatar?.id) {
                     setAvatarUrl('/default-avatar.png');
@@ -45,7 +46,8 @@ export const ProfilePage = () => {
 
                     const url = URL.createObjectURL(blob);
                     setAvatarUrl(url);
-                } catch (avatarError) {
+                }
+                catch (avatarError) {
                     console.error('Ошибка загрузки аватара:', avatarError);
                     setAvatarUrl('/default-avatar.png');
                 }
@@ -91,7 +93,7 @@ export const ProfilePage = () => {
 
                         <div className={styles.section_item_block}>
                             <p className={styles.section_name_text}>{t("profile.snils")}:</p>
-                            <p className={styles.section_base_text}>пока хз</p>
+                            <p className={styles.section_base_text}>-</p>
                         </div>
 
                         <div className={styles.section_item_block}>
@@ -104,25 +106,26 @@ export const ProfilePage = () => {
                     <div className={styles.section}>
                         <p className={styles.section_header_text}>{t("profile.contacts")}</p>
 
-                        <div className={styles.section_item_block}>
-                            <p className={styles.section_name_text}>{t("profile.phone")}:</p>
-                            <p className={styles.section_base_text}>пока хз</p>
-                        </div>
-
-                        <div className={styles.section_item_block}>
-                            <p className={styles.section_name_text}>{t("profile.additional_email")}:</p>
-                            <p className={styles.section_base_text}>пока хз</p>
-                        </div>
+                        {profile.contacts?.map((contact) => (
+                            <div className={styles.section_item_block}>
+                                <p className={styles.section_name_text}>{contact.type == ContactTypes.Phone ? t("profile.phone")
+                                    : contact.type == ContactTypes.Email ? t("profile.additional_email")
+                                        : contact.type == ContactTypes.SocialMedia ? t("profile.social_media"): t("profile.add_info")}:</p>
+                                <p className={styles.section_base_text}>{contact.value}</p>
+                            </div>
+                        ))}
 
                         <div className={styles.section_item_block}>
                             <p className={styles.section_name_text}>{t("profile.address")}:</p>
                             <p className={styles.section_base_text}>{profile.address}</p>
                         </div>
+
+                        <div className={styles.section_item_block}></div>
                     </div>
                 </div>
 
                 <div className={styles.main_info}>
-                    <h2 className={styles.title_name}>{profile.firstName}</h2>
+                    <h2 className={styles.title_name}>{profile.lastName} {profile.firstName} {profile.patronymic}</h2>
 
                     {profile && <ProfileTabs userTypes={profile.userTypes}/>}
 

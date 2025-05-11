@@ -1,4 +1,4 @@
-import styles from "./styles/ItemEducation.module.css"
+import styles from "./styles/EducationBlock.module.css"
 import {EducationEntryDto} from "../../services/profile.service.ts";
 import {useTranslation} from "react-i18next";
 
