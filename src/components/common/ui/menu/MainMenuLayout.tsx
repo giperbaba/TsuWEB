@@ -16,6 +16,5 @@ export const MainMenuLayout = () => {
                 <Outlet />
             </div>
             <LanguageSwitcher/>
-        </div>
-);
+        </div> );
 };

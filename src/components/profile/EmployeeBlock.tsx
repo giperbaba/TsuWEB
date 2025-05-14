@@ -27,8 +27,8 @@ export const EmployeeBlock=  () => {
                 {experience.map((exp => (
                     <div className={styles.section_container}>
                         <div className={styles.section_item_block}>
-                            <div className={styles.section_name_text}>{exp.type}</div>
-                            <div className={styles.section_base_text}>{exp.years ? exp.years % 5 == 0 ? exp.years.toString() + " лет" : exp.years.toString() + " года" : "0 лет"} {exp.months ? exp.months : "0 месяцев"}</div>
+                            <div className={styles.section_name_text}>{exp.type == "Common" ? "Общий стаж" : exp.type == "Pedagogical" ? "Педагогический стаж" : exp.type == "OnCurrentPlace" ? "На текущем месте работы" : exp.type}</div>
+                            <div className={styles.section_base_text}>{exp.years ? exp.years % 5 == 0 ? exp.years.toString() + " лет" : exp.years.toString() + " года" : "0 лет"} {exp.months % 5 == 0 ? exp.months + " месяцев" : exp.months % 5 != 0 ? exp.months + " месяца" : "0 месяцев"}</div>
                         </div>
                     </div>
                 )))}

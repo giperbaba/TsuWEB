@@ -9,6 +9,14 @@ interface PostCardProps {
 export const PostCard = (props: PostCardProps) => {
     const {t} = useTranslation('common');
 
+    const employmentTypeMap: Record<string, string> = {
+        MainPlace: 'Основное место работы',
+        PartTime: 'Неполный рабочий день',
+        InnerPartTime: 'Внутренний неполный рабочий день',
+        Freelance: 'Фриланс',
+    };
+
+
     return(
         <div className={styles.item_post}>
             <h2 className={styles.bold_text}>{props.post.postName.name}</h2>
@@ -17,11 +25,13 @@ export const PostCard = (props: PostCardProps) => {
                 <div className={styles.section_row}>
                     <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t('employee.view')}</div>
-                        <div className={styles.section_base_text}>{props.post.employmentType.toString()}</div>
+                        <div className={styles.section_base_text}>
+                            {employmentTypeMap[props.post.employmentType] || 'Неизвестно'}
+                        </div>
                     </div>
 
                     <div className={styles.section_item_block}>
-                        <div className={styles.section_name_text}>{t('employee.rate')}</div>
+                    <div className={styles.section_name_text}>{t('employee.rate')}</div>
                         <div className={styles.section_base_text}>{props.post.rate}</div>
                     </div>
                 </div>

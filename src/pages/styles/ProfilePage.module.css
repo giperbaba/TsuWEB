@@ -18,7 +18,7 @@
 
 .profile_container {
     display: flex;
-    gap: 32px;
+    gap: 5px;
 }
 
 .left_menu {
@@ -30,6 +30,8 @@
 
 .avatar {
     width: 400px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 8px;
 }
 

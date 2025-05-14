@@ -138,5 +138,5 @@ export const ProfileService = {
     getProfile: () => instance.get<ProfileDto>('/Profile'),
     getStudentInfo: () => instance.get<StudentDto>('/Profile/student'),
     getEmployeeInfo: () => instance.get<EmployeeDto>('/Profile/employee'),
-    updateAvatar: (fileId: string) => instance.put('/Profile/avatar', fileId),
+    updateAvatar: (fileId: string) => instance.put('/Profile/avatar',{ fileId} ),
 };

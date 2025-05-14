@@ -5,10 +5,10 @@ export const getAccessToken = () => Cookies.get('accessToken');
 export const getRefreshToken = () => Cookies.get('refreshToken');
 
 export const setAccessToken = (token: string) =>
-    Cookies.set('accessToken', token, { secure: true, sameSite: 'Strict' });
+    Cookies.set('accessToken', token, { secure: false, sameSite: 'Lax' });
 
 export const setRefreshToken = (token: string) =>
-    Cookies.set('refreshToken', token, { secure: true, sameSite: 'Strict' });
+    Cookies.set('refreshToken', token, { secure: false, sameSite: 'Lax' });
 
 export const removeAccessToken = () => Cookies.remove('accessToken');
 

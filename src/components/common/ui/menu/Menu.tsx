@@ -8,12 +8,14 @@ import MenuEvents from "../../../../assets/icons/MenuEvents";
 import MenuLeft from "../../../../assets/icons/MenuLeft";
 import MenuRight from "../../../../assets/icons/MenuRight";
 import {NavLink, useLocation} from "react-router-dom";
-import {useTranslation} from "react-i18next"; // если используешь react-router
+import {useTranslation} from "react-i18next";
+import {useProfile} from "../../../../context/ProfileContext.tsx";
 
 export const Menu = () => {
     const [open, setOpen] = React.useState(true);
     const {t} = useTranslation('common');
     const location = useLocation();
+    const { avatarUrl } = useProfile();
 
     const toggleMenu = () => {
         setOpen(!open);
@@ -30,19 +32,24 @@ export const Menu = () => {
     return (
         <div className={`${styles.menu} ${open ? styles.menu_open : styles.menu_closed}`}>
             <div className={styles.toggleButtonWrapper}>
+                <div className={styles.menu_avatar_wrapper}>
+                    <img src={avatarUrl} alt="avatar" className={styles.menu_avatar}/>
+                </div>
                 <div onClick={toggleMenu} className={styles.toggleButton}>
                     {open ? <MenuLeft/> : <MenuRight/>}
                 </div>
             </div>
+            <div className={styles.toggleButtonWrapper}></div>
+
             <ol className={styles.menuList}>
                 {menuItems.map(({path, label, icon: Icon}) => {
                     const isActive = location.pathname === path;
                     return (
                         <li key={path} className=
-                            {`${isActive ? styles.activeItem : ""} ${path === "/admin" ? styles.admin_link : ""}`.trim()}>
+                            {isActive ? styles.activeItem : ""}>
 
                             <NavLink to={path} className={styles.menuLink}>
-                                <Icon stroke={isActive ? "#375FFF" : "#000"}/>
+                                <Icon stroke={isActive ? "#375FFF" : "#000"} enableBackground={isActive ? "#375FFF1A" : "#000" }/>
                                 {open && <span>{label}</span>}
                             </NavLink>
                         </li>

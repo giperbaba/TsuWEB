@@ -3,11 +3,11 @@ import styles from "../../pages/styles/ProfilePage.module.css";
 import st from "./styles/ProfileTabs.module.css"
 import {EducationBlock} from "./EducationBlock";
 import {EmployeeBlock} from "./EmployeeBlock";
-import {ProfileDto, UserType} from "../../services/profile.service.ts";
+import {UserType} from "../../services/profile.service.ts";
 import {useTranslation} from "react-i18next";
 
 interface Props {
-    userTypes: ProfileDto["userTypes"];
+    userTypes: UserType[] | null;
 }
 
 export const ProfileTabs = ({ userTypes }: Props) => {

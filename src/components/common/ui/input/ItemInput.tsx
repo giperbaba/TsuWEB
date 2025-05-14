@@ -9,12 +9,11 @@ interface ItemInputProps {
 
 export const ItemInput = (props: ItemInputProps) => {
     return(<div className={styles.input_container}>
-            <label className={styles.label} htmlFor="input">{props.label}</label>
+            <label className={styles.label}>{props.label}</label>
             <input className={styles.item_input}
                    value={props.value}
                    type={props.type}
-                   onChange={props.onChange}
-                   id="input"/>
+                   onChange={props.onChange}/>
         </div>
     )
 }

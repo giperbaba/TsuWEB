@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { getAccessToken, getRefreshToken, removeAccessToken, removeRefreshToken, setAccessToken, setRefreshToken } from "../auth/cookiesService.ts";
-import { redirectToLogin, redirectToServerError } from "../services/navigationService.ts";
+import {redirectToLogin, redirectToServerError} from "../services/navigationService.ts";
 
 const API_URL = 'https://lk-stud.api.kreosoft.space/api';
 
@@ -23,6 +23,9 @@ instance.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+let isRefreshing = false;
+let refreshPromise: Promise<RefreshResponse> | null = null;
+
 // response interceptor
 instance.interceptors.response.use(
     (response) => response,
@@ -32,24 +35,33 @@ instance.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            const refreshToken = getRefreshToken();
-
-            if (!refreshToken) {
+            const currentRefreshToken = getRefreshToken();
+            if (!currentRefreshToken) {
                 removeAccessToken();
                 removeRefreshToken();
-                //redirectToLogin();
+                redirectToLogin();
                 return Promise.reject(error);
             }
 
             try {
-                const { accessToken, refreshToken: newRefreshToken } = await refreshTokens(refreshToken);
+                if (!isRefreshing) {
+                    isRefreshing = true;
+                    refreshPromise = refreshTokens(currentRefreshToken);
+                }
+
+                const { accessToken, refreshToken } = await refreshPromise!;
                 setAccessToken(accessToken);
-                setRefreshToken(newRefreshToken);
+                setRefreshToken(refreshToken);
+
+                isRefreshing = false;
+                refreshPromise = null;
 
                 originalRequest.headers.Authorization = `Bearer ${accessToken}`;
                 return instance(originalRequest);
-            }
-            catch (refreshError) {
+            } catch (refreshError) {
+                isRefreshing = false;
+                refreshPromise = null;
+
                 removeAccessToken();
                 removeRefreshToken();
                 redirectToLogin();
@@ -64,7 +76,6 @@ instance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
 export default instance;
 
 interface RefreshResponse {
@@ -73,11 +84,15 @@ interface RefreshResponse {
 }
 
 export async function refreshTokens(refreshToken: string): Promise<RefreshResponse> {
-    const response = await axios.post<RefreshResponse>(`${API_URL}/Auth/refresh`, {
-        refreshToken
-    }, {
-        headers: { 'Content-Type': 'application/json' }
-    });
-
+    const rawAxios = axios.create(); // отдельный инстанс без интерсепторов
+    const response = await rawAxios.post<RefreshResponse>(
+        `${API_URL}/Auth/refresh`,
+        { refreshToken },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+    );
     return response.data;
 }
