@@ -5,7 +5,7 @@
 }
 
 .menu_open {
-    width: 240px;
+    min-width: 240px;
 }
 
 .menu_closed {
@@ -29,6 +29,7 @@
     position: relative;
     padding-top: 15px;
 }
+
 
 .menuList {
     list-style: none;
@@ -85,3 +86,20 @@
     justify-content: center;
     align-items: center;
 }
+
+.close_mobile_menu_btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin-left: auto;
+    cursor: pointer;
+    color: #000;
+}
+
+.menu_close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+

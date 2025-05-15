@@ -10,15 +10,22 @@ import MenuRight from "../../../../assets/icons/MenuRight";
 import {NavLink, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useProfile} from "../../../../context/ProfileContext.tsx";
+import {useMenu} from "../../../../context/MenuContext.tsx";
 
 export const Menu = () => {
     const [open, setOpen] = React.useState(true);
     const {t} = useTranslation('common');
     const location = useLocation();
     const { avatarUrl } = useProfile();
+    const { isMobile, toggleMenu } = useMenu();
 
-    const toggleMenu = () => {
-        setOpen(!open);
+    const handleToggleMenu = () => {
+        if (isMobile) {
+            toggleMenu();
+        }
+        else {
+            setOpen(prev => !prev);
+        }
     };
 
     const menuItems = [
@@ -35,21 +42,24 @@ export const Menu = () => {
                 <div className={styles.menu_avatar_wrapper}>
                     <img src={avatarUrl} alt="avatar" className={styles.menu_avatar}/>
                 </div>
-                <div onClick={toggleMenu} className={styles.toggleButton}>
-                    {open ? <MenuLeft/> : <MenuRight/>}
+
+                <div onClick={handleToggleMenu} className={styles.toggleButton}>
+                    {isMobile ? <MenuLeft/> : open ? <MenuLeft/> : <MenuRight/>}
                 </div>
             </div>
             <div className={styles.toggleButtonWrapper}></div>
+
 
             <ol className={styles.menuList}>
                 {menuItems.map(({path, label, icon: Icon}) => {
                     const isActive = location.pathname === path;
                     return (
-                        <li key={path} className=
-                            {isActive ? styles.activeItem : ""}>
-
-                            <NavLink to={path} className={styles.menuLink}>
-                                <Icon stroke={isActive ? "#375FFF" : "#000"} enableBackground={isActive ? "#375FFF1A" : "#000" }/>
+                        <li key={path} className={isActive ? styles.activeItem : ""}>
+                            <NavLink to={path} className={styles.menuLink} onClick={isMobile ? toggleMenu : undefined}>
+                                <Icon
+                                    stroke={isActive ? "#375FFF" : "#000"}
+                                    enableBackground={isActive ? "#375FFF1A" : "#000"}
+                                />
                                 {open && <span>{label}</span>}
                             </NavLink>
                         </li>

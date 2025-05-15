@@ -38,8 +38,11 @@ export const ProfilePage = () => {
             <h1 className={styles.title}>{t("profile.profile")}</h1>
             <div className={styles.profile_container}>
                 <div className={styles.left_menu}>
-                    <label style={{cursor: 'pointer'}}>
-                        <img src={avatarUrl} alt="avatar" className={styles.avatar}/>
+                    <h2 className={`${styles.title_name} ${styles.mobile_only}`}>
+                        {profile.lastName} {profile.firstName} {profile.patronymic}
+                    </h2>
+                    <label>
+                        <img src={avatarUrl} alt="avatar" className={styles.avatar} style={{cursor: 'pointer'}}/>
                         <input type="file" accept="image/*" onChange={handleImageChange} hidden/>
                     </label>
                     {selectedImage && (
@@ -111,10 +114,12 @@ export const ProfilePage = () => {
                 </div>
 
                 <div className={styles.main_info}>
-                    <h2 className={styles.title_name}>{profile.lastName} {profile.firstName} {profile.patronymic}</h2>
+                    <h2 className={`${styles.title_name} ${styles.desktop_only}`}>
+                        {profile.lastName} {profile.firstName} {profile.patronymic}
+                    </h2>
 
                     {profile && (profile.userTypes?.length ? (
-                        <ProfileTabs userTypes={profile.userTypes} />
+                        <ProfileTabs userTypes={profile.userTypes}/>
                     ) : (
                         <p></p>
                     ))}

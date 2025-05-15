@@ -5,14 +5,17 @@ import App from './App.tsx'
 import {NotificationProvider} from "./context/NotificationContext.tsx";
 import { BrowserRouter } from 'react-router-dom'
 import {ProfileProvider} from "./context/ProfileContext.tsx";
+import {MenuProvider} from "./context/MenuContext.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ProfileProvider>
           <BrowserRouter>
-              <NotificationProvider>
-                  <App />
-              </NotificationProvider>
+              <MenuProvider>
+                  <NotificationProvider>
+                      <App />
+                  </NotificationProvider>
+              </MenuProvider>
           </BrowserRouter>
       </ProfileProvider>
   </StrictMode>,

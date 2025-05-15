@@ -1,4 +1,7 @@
 {
+  "common": {
+    "main": "Main"
+  },
   "titles": {
     "login": "Login to account"
   },
@@ -75,5 +78,21 @@
     "direction": "direction",
     "date_start": "Date of employment",
     "date_end": "Date of dismissal"
+  },
+  "services": {
+    "services": "Useful services"
+  },
+  "events": {
+    "events": "Events"
+  },
+  "certificates": {
+    "certificates": "Certificates"
+  },
+  "administration": {
+    "administration": "Administration",
+    "users": "Users",
+    "services": "Useful services",
+    "events": "Events",
+    "cardDescription": "Equally, the constant quantitative growth and the scope of our activity largely determine the creation of significant financial and administrative conditions."
   }
 }

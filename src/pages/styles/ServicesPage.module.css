@@ -1,3 +1,15 @@
 .services_page {
+    padding: 32px;
+    background: #EFEFEF;
+    min-height: 100vh;
+}
 
+.title {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 40px;
+    leading-trim: Cap height;
+    line-height: 100%;
+    color: #3A3A3A;
+    padding: 30px 30px 30px 16px;
 }

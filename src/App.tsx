@@ -3,11 +3,14 @@ import {Routes, Route, Navigate} from "react-router-dom";
 import { AuthorizationPage } from "./pages/AuthorizationPage.tsx";
 import { ErrorPage } from "./pages/ErrorPage.tsx";
 import {ProfilePage} from "./pages/ProfilePage.tsx";
-import {AdministrationPage} from "./pages/AdministrationPage.tsx";
+import {AdministrationPage} from "./pages/administration/AdministrationPage.tsx";
 import {ServicesPage} from "./pages/ServicesPage.tsx";
 import {CertificatesPage} from "./pages/CertificatesPage.tsx";
 import {EventsPage} from "./pages/EventsPage.tsx";
-import {MainMenuLayout} from "./components/common/ui/menu/MainMenuLayout.tsx"; // Assuming your ErrorPage is in this location
+import {MainMenuLayout} from "./components/common/ui/menu/MainMenuLayout.tsx";
+import {AdminEventsPage} from "./pages/administration/AdminEventsPage.tsx";
+import {AdminServicesPage} from "./pages/administration/AdminServicesPage.tsx";
+import {AdminUsersPage} from "./pages/administration/AdminUsersPage.tsx";
 
 function App() {
     return (
@@ -19,7 +22,12 @@ function App() {
 
             <Route element={<MainMenuLayout />}>
                 <Route path="/profile" element={<ProfilePage />} />
+
                 <Route path="/admin" element={<AdministrationPage />} />
+                <Route path="/admin/users" element={<AdminUsersPage />} />
+                <Route path="/admin/usefulservices" element={<AdminServicesPage />} />
+                <Route path="/admin/events" element={<AdminEventsPage />} />
+
                 <Route path="/usefulservices" element={<ServicesPage />} />
                 <Route path="/certificates" element={<CertificatesPage />} />
                 <Route path="/events" element={<EventsPage />} />

@@ -1,6 +1,8 @@
 .profile_page {
     background: #EFEFEF;
+    min-height: 100vh;
 }
+
 .profile_page {
     padding: 32px;
     color: #000;
@@ -13,7 +15,7 @@
     leading-trim: Cap height;
     line-height: 100%;
     color: #3A3A3A;
-    padding: 30px;
+    padding: 30px 30px 30px 16px;
 }
 
 .profile_container {
@@ -56,6 +58,7 @@
     flex: 1;
     border-radius: 12px;
     padding: 16px;
+    width: 50%;
 }
 
 .education_block {
@@ -85,7 +88,7 @@
 }
 
 .content {
-    margin: 25px;
+    margin: 21px;
 }
 
 /*text styles*/
@@ -124,4 +127,62 @@
     line-height: 120%;
     color: #3A3A3A;
     padding-bottom: 12px;
+}
+
+.mobile_only {
+    display: none;
+}
+
+.desktop_only {
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .mobile_only {
+        display: block;
+    }
+
+    .desktop_only {
+        display: none;
+    }
+
+    .section {
+        width: 100%;
+    }
+
+    .avatar {
+        max-width: 400px;
+        align-self: center;
+        width: 100%;
+    }
+
+    label {
+        align-self: center;
+    }
+
+    .section_item_block {
+        gap: 16px;
+    }
+
+    .left_menu {
+        width: 50%;
+    }
+}
+
+@media (max-width: 700px) {
+    .profile_container {
+        flex-direction: column;
+    }
+
+    .left_menu {
+        width: auto;
+    }
+
+    .section_item_block {
+        gap: 16px;
+    }
+
+    .main_info {
+        width: 100%;
+    }
 }
