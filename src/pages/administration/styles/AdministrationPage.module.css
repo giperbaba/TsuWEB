@@ -64,6 +64,7 @@
     gap: 10px;
     max-width: 340px;
     min-width: 280px;
+    cursor: pointer;
 }
 
 .card_header {

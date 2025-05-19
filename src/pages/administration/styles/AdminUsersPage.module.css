@@ -1,0 +1,260 @@
+.admin_users_page {
+    padding: 32px;
+    background: #EFEFEF;
+    min-height: 100vh;
+}
+
+.title {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 40px;
+    leading-trim: Cap height;
+    line-height: 100%;
+    color: #3A3A3A;
+    padding: 30px 30px 30px 16px;
+}
+
+.breadcrumb {
+    color: #3A3A3A;
+    font-size: 14px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    font-family: Raleway, serif;
+}
+
+.breadcrumb_link {
+    color: #3A3A3A;
+    text-decoration: none;
+    font-family: Raleway, serif;
+    font-size: 14px;
+    line-height: 120%;
+}
+
+.breadcrumb_link:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb_separator {
+    margin: 0 4px;
+    color: #3A3A3A;
+}
+
+.breadcrumb_active {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: #375FFF;
+    text-decoration: none;
+}
+
+.breadcrumb_active_red {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: #861F41;
+    text-decoration: none;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 16px 16px;
+}
+
+.search_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search_gap {
+    display: flex;
+    gap: 10px;
+}
+
+.search_input {
+    gap: 10px;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid #3A3A3A80;
+    margin-left: 16px;
+    margin-right: 16px;
+    width: 80%;
+}
+
+/* cards */
+.users_container {
+    background: #F9F9F9;
+    top: 312px;
+    left: 200px;
+    border-radius: 8px;
+    padding: 15px 24px;
+    margin-bottom: 20px;
+    margin-left: 16px;
+
+}
+.card_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.user_card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #F9F9F9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 200px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.user_card:hover {
+    background: #3A3A3A05;
+    border: 1px solid #375FFF;
+}
+
+.user_card_list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #F9F9F9;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user_card_list:hover {
+    background: #3A3A3A05;
+    border-left: 2px solid #375FFF;
+}
+
+.user_card_row {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    min-width: 0;
+}
+
+.card_header {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.card_body p {
+    margin: 5px 0;
+}
+
+/* alphabet */
+.alphabet_container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.alphabet_toggle {
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.alphabet_expanded {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0 10px;
+}
+
+.alphabet_letter {
+    cursor: pointer;
+    padding: 2px 5px;
+    transition: all 0.2s;
+}
+
+.alphabet_letter:hover {
+    color: #861F41;
+}
+
+.active_letter {
+    color: #861F41;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.search_button {
+    border: none;
+    width: 20%;
+    border-radius: 8px;
+    padding: 12px 30px 12px 30px;
+    cursor: pointer;
+
+    font-weight: 400;
+    font-size: 16px;
+
+    background: #375FFF;
+    font-family: Roboto, serif;
+    color: #FFFFFF;
+}
+
+/*text*/
+.card_header_text {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 16px;
+    color: #3A3A3A;
+}
+
+.card_base_text {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: #666666;
+}
+
+.card_info_text {
+    font-family: Raleway;
+    color: #3A3A3A;
+    font-weight: 500;
+    font-size: 14px;
+    min-width: 0;
+}
+
+.view_toggle {
+    display: flex;
+    gap: 12px;
+}
+
+.pagination_container {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .pagination_container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .pagination_container {
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 30px;
+    }
+
+    .search_button {
+        display: flex;
+        justify-content: center;
+        font-weight: 400;
+        font-size: 12px;
+    }
+}

@@ -1,4 +1,4 @@
-import styles from "../styles/AdministrationPage.module.css";
+import styles from "./styles/AdministrationPage.module.css";
 import { useTranslation } from "react-i18next";
 import Users from "../../assets/icons/Users.tsx";
 import Events from "../../assets/icons/Events.tsx";

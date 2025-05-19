@@ -13,7 +13,8 @@ export const ItemInput = (props: ItemInputProps) => {
             <input className={styles.item_input}
                    value={props.value}
                    type={props.type}
-                   onChange={props.onChange}/>
+                   onChange={props.onChange}></input>
+
         </div>
     )
 }
