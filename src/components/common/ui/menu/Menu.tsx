@@ -36,6 +36,8 @@ export const Menu = () => {
         {path: "/events", label: t("menu.events"), icon: MenuEvents},
     ];
 
+    const pathsWithSubroutes = ["/admin"];
+
     return (
         <div className={`${styles.menu} ${open ? styles.menu_open : styles.menu_closed}`}>
             <div className={styles.toggleButtonWrapper}>
@@ -52,7 +54,9 @@ export const Menu = () => {
 
             <ol className={styles.menuList}>
                 {menuItems.map(({path, label, icon: Icon}) => {
-                    const isActive = location.pathname === path;
+                    const isActive = pathsWithSubroutes.some(p => path.startsWith(p))
+                        ? location.pathname.startsWith(path)
+                        : location.pathname === path;
                     return (
                         <li key={path} className={isActive ? styles.activeItem : ""}>
                             <NavLink to={path} className={styles.menuLink} onClick={isMobile ? toggleMenu : undefined}>

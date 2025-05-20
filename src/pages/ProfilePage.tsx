@@ -1,9 +1,8 @@
-
 import styles from "./styles/ProfilePage.module.css";
 import {useTranslation} from "react-i18next";
 import {ProfileTabs} from "../components/profile/ProfileTabs.tsx";
 import {useProfile} from "../context/ProfileContext.tsx";
-import {ContactTypes, ProfileService} from "../services/profile.service.ts";
+import {ContactTypes, Gender, ProfileService} from "../services/profile.service.ts";
 import {useState} from "react";
 import {FileService} from "../services/file.service.ts";
 import {AvatarCropModal} from "../components/profile/AvatarCropModal.tsx";
@@ -59,7 +58,7 @@ export const ProfilePage = () => {
 
                         <div className={styles.section_item_block}>
                             <p className={styles.section_name_text}>{t("profile.gender")}:</p>
-                            <p className={styles.section_base_text}>{profile.gender}</p>
+                            <p className={styles.section_base_text}>{profile.gender == Gender.Female ? "Женский" : profile.gender == Gender.Male ? "Мужской" : "Не определен"}</p>
                         </div>
 
                         <div className={styles.section_item_block}>

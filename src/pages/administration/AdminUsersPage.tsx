@@ -42,10 +42,9 @@ export const AdminUsersPage = () => {
                     pageSize
                 ),
                 {
-                    errorMessage: "Failed to load users",
+                    errorMessage: "Failed to load users, access denied",
                 }
             );
-            console.log("Full response:", response);
             setUsers(response.data.results);
             setMetadata(response.data.metaData);
             setCurrentPage(response.data.metaData.pageNumber);
@@ -67,7 +66,7 @@ export const AdminUsersPage = () => {
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setCurrentPage(1);
-        fetchUsers();
+        //fetchUsers();
     };
 
     const handleLetterClick = (letter: string) => {
@@ -110,7 +109,7 @@ export const AdminUsersPage = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <button type="submit" className={styles.search_button} onClick={fetchUsers}>
+                <button type="submit" className={styles.search_button}>
                     {t("administration.search")}
                 </button>
             </form>
@@ -161,12 +160,16 @@ export const AdminUsersPage = () => {
                     <p>{t("administration.no_users")}</p>
                 ) : viewMode === 'list' ? (
                     users.map((user) => (
-                        <UserCardList key={user.id} user={user} />
+                        <Link to={`/admin/users/${user.id}`} key={user.id} className={styles.user_link}>
+                            <UserCardList user={user} />
+                        </Link>
                     ))
                 ) : (
                     <div className={styles.card_grid}>
                         {users.map((user) => (
-                            <UserCard key={user.id} user={user} />
+                            <Link to={`/admin/users/${user.id}`} key={user.id} className={styles.user_link}>
+                                <UserCard user={user} />
+                            </Link>
                         ))}
                     </div>
                 )}

@@ -11,6 +11,7 @@ import {MainMenuLayout} from "./components/common/ui/menu/MainMenuLayout.tsx";
 import {AdminEventsPage} from "./pages/administration/AdminEventsPage.tsx";
 import {AdminServicesPage} from "./pages/administration/AdminServicesPage.tsx";
 import {AdminUsersPage} from "./pages/administration/AdminUsersPage.tsx";
+import {AdminItemUserPage} from "./pages/administration/AdminItemUserPage.tsx";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
 
                 <Route path="/admin" element={<AdministrationPage />} />
                 <Route path="/admin/users" element={<AdminUsersPage />} />
+                <Route path="/admin/users/:userId" element={<AdminItemUserPage />} />
                 <Route path="/admin/usefulservices" element={<AdminServicesPage />} />
                 <Route path="/admin/events" element={<AdminEventsPage />} />
 

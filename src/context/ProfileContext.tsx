@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ProfileDto, ProfileService } from "../services/profile.service";
-import { FileService } from "../services/file.service";
 import {getRefreshToken} from "../auth/cookiesService.ts";
+import {fetchAvatarById} from "../pages/administration/AdminItemUserPage.tsx";
+import defaultAvatar from "../assets/jpg/default_avatar.jpg";
 
 interface ProfileContextType {
     profile: ProfileDto | null;
@@ -10,14 +11,14 @@ interface ProfileContextType {
 
 const ProfileContext = createContext<ProfileContextType>({
     profile: null,
-    avatarUrl: "/default-avatar.png",
+    avatarUrl: defaultAvatar,
 });
 
 export const useProfile = () => useContext(ProfileContext);
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [profile, setProfile] = useState<ProfileDto | null>(null);
-    const [avatarUrl, setAvatarUrl] = useState("/default-avatar.png");
+    const [avatarUrl, setAvatarUrl] = useState<string>("");
 
     useEffect(() => {
         const hasRefreshToken = getRefreshToken();
@@ -29,34 +30,20 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
                 console.log(data);
                 setProfile(data);
 
-                if (!data.avatar?.id) return;
-
-                const avatar = await FileService.getAvatar(data.avatar.id);
-                let blob: Blob;
-
-                if (avatar.data instanceof Blob) {
-                    blob = avatar.data;
-                } else if (avatar.data instanceof ArrayBuffer) {
-                    blob = new Blob([avatar.data], { type: 'image/jpeg' });
-                } else if (typeof avatar.data === "string") {
-                    const bytes = new Uint8Array(avatar.data.length);
-                    for (let i = 0; i < avatar.data.length; i++) {
-                        bytes[i] = avatar.data.charCodeAt(i);
-                    }
-                    blob = new Blob([bytes], { type: 'image/jpeg' });
-                } else {
-                    console.warn("Неизвестный формат данных для аватара");
+                if (!data.avatar?.id) {
+                    setAvatarUrl(defaultAvatar);
                     return;
                 }
 
-                const url = URL.createObjectURL(blob);
-                setAvatarUrl(url);
+                const url = await fetchAvatarById(data.avatar.id)
+                setAvatarUrl(url || defaultAvatar);
 
                 return () => {
-                    URL.revokeObjectURL(url);
+                    if (url) URL.revokeObjectURL(url);
                 };
             } catch (error) {
                 console.error("Ошибка загрузки профиля:", error);
+                setAvatarUrl(defaultAvatar);
             }
         };
 

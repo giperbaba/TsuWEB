@@ -97,6 +97,7 @@
     "cardDescription": "Equally, the constant quantitative growth and the scope of our activity largely determine the creation of significant financial and administrative conditions.",
     "search": "SEARCH",
     "placeholder": "Enter your full name",
-    "no_users": "Users not found"
+    "no_users": "Users not found",
+    "data": "Individual data"
   }
 }

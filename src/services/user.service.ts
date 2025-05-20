@@ -1,4 +1,5 @@
 import instance from "../api/instance.ts";
+import {ProfileDto} from "./profile.service.ts";
 
 export interface ProfileShortDtoPagedListWithMetadata {
     results: ProfileShortDto[];
@@ -34,4 +35,5 @@ export const UserService = {
                page: number = 1,
                pageSize: number = 20) => instance.get<ProfileShortDtoPagedListWithMetadata>('/User/list', {
                    params: { email, name, filterLastName, page, pageSize } } ),
+    getItemUser: (userId: string) => instance.get<ProfileDto>(`/User/${userId}`)
 };
