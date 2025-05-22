@@ -27,7 +27,6 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         const fetchProfile = async () => {
             try {
                 const { data } = await ProfileService.getProfile();
-                console.log(data);
                 setProfile(data);
 
                 if (!data.avatar?.id) {

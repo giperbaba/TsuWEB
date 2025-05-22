@@ -21,6 +21,7 @@
     border-radius: 8px;
     border: 1px solid #3A3A3A80;
     outline:none;
+    background: #F9F9F9;
 }
 
 .label {
@@ -31,7 +32,7 @@
     top: -8px;
     left: 15px;
     line-height: 120%;
-    background: #FFFFFF;
+    background: #F9F9F9;
     color: #9D9D9D;
     padding: 1px;
     font-variant-numeric-figure: lining-nums;

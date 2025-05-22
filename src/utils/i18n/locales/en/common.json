@@ -1,7 +1,9 @@
 {
   "common": {
     "main": "Main",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "save": "SAVE",
+    "cancel": "CANCEL"
   },
   "titles": {
     "login": "Login to account"
@@ -81,7 +83,18 @@
     "date_end": "Date of dismissal"
   },
   "services": {
-    "services": "Useful services"
+    "services": "Useful services",
+    "add": "Add service",
+    "adding": "Adding service",
+    "link": "Link",
+    "type": "Type",
+    "description": "Description",
+    "condition": "Terms of provision",
+    "name": "Service name",
+    "image": "Upload image",
+    "not_found": "Services not found",
+    "success": "Service successfully created",
+    "title_validation": "Please, enter a title"
   },
   "events": {
     "events": "Events"

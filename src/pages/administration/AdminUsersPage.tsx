@@ -9,8 +9,9 @@ import { useRequest } from "../../hooks/useRequest.ts";
 import { PagedListMetaData, ProfileShortDto, UserService } from "../../services/user.service.ts";
 import React, { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
-import {UserCardList} from "./UserCardList.tsx";
-import {UserCard} from "./UserCard.tsx";
+import {UserCardList} from "../../components/admin/UserCardList.tsx";
+import {UserCard} from "../../components/admin/UserCard.tsx";
+import SvgSearch from "../../assets/icons/Search.tsx";
 
 export const AdminUsersPage = () => {
     const { t } = useTranslation('common');
@@ -102,13 +103,16 @@ export const AdminUsersPage = () => {
             </div>
 
             <form className={styles.search_row} onSubmit={handleSearch}>
-                <input
-                    className={styles.search_input}
-                    type="text"
-                    placeholder={t("administration.placeholder")}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
+                <div className={styles.search_input_container}>
+                    <SvgSearch className={styles.search_icon}/>
+                    <input
+                        className={styles.search_input}
+                        type="text"
+                        placeholder={t("administration.placeholder")}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
                 <button type="submit" className={styles.search_button}>
                     {t("administration.search")}
                 </button>
@@ -116,7 +120,7 @@ export const AdminUsersPage = () => {
 
             <div className={styles.search}>
                 <div className={styles.search_row}>
-                    <PaginationLeft />
+                    <PaginationLeft/>
                     <div className={styles.alphabet_container}>
                         {alphabetExpanded ? (
                             <div className={styles.alphabet_expanded}>

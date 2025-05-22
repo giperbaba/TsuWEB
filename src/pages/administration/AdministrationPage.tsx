@@ -33,7 +33,6 @@ export const AdministrationPage = () => {
     return (
         <div className={styles.admin_page}>
             <h1 className={styles.title}>{t("administration.administration")}</h1>
-            <div className={styles.breadcrumb}>
                 <div className={styles.breadcrumb}>
                     <Link to="/profile" className={styles.breadcrumb_link}>
                         {t("common.main")}
@@ -43,7 +42,7 @@ export const AdministrationPage = () => {
                         {t("administration.administration")}
                     </Link>
                 </div>
-            </div>
+
 
             <div className={styles.cards}>
                 {cards.map((card, index) => (

@@ -16,11 +16,12 @@ interface ItemButtonProps {
     click?: () => void;
     children?: React.ReactNode;
     options?: Options;
+    type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const ItemButton = ({variant = "primary", children, click}: ItemButtonProps) => {
+export const ItemButton = ({variant = "primary", children, click, type}: ItemButtonProps) => {
     return(
-        <button className={`${styles.button} ${styles[variant]}`} onClick={click}>
+        <button className={`${styles.button} ${styles[variant]}`} onClick={click} type={type}>
             {children}
         </button>)
 }

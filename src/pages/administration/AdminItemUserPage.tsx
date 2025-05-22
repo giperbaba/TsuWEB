@@ -157,7 +157,6 @@ export const AdminItemUserPage = () => {
 export async function fetchAvatarById(avatarId: string): Promise<string> {
     try {
         const response = await FileService.getAvatar(avatarId)
-
         const avatarUrl = URL.createObjectURL(response.data);
         return avatarUrl;
     } catch (error) {

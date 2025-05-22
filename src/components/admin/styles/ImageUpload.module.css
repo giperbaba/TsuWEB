@@ -1,0 +1,60 @@
+.input_wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.label_choose {
+    position: absolute;
+    top: -8px;
+    left: 15px;
+    font-size: 14px;
+    background: #f9f9f9;
+    padding: 1px 4px;
+    color: #3A3A3A80;
+    font-family: Raleway, serif;
+    font-weight: 500;
+}
+
+.item_input_choose {
+    display: none;
+}
+
+.upload_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #3A3A3A80;
+    border-radius: 8px;
+    height: 56px;
+    cursor: pointer;
+    background: #f9f9f9;
+    width: 100%;
+}
+
+.upload_prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3A3A3A80;
+    font-size: 14px;
+}
+
+.uploaded_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #3A3A3A80;
+    border-radius: 8px;
+    height: 56px;
+    padding: 0 12px;
+    background: #f9f9f9;
+    gap: 10px;
+}
+
+.remove_btn {
+    background: transparent;
+    border: none;
+    color: #3a3a3a;
+    font-size: 16px;
+    cursor: pointer;
+}

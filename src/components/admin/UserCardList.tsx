@@ -1,5 +1,5 @@
-import { ProfileShortDto } from "../../services/user.service";
-import styles from "./styles/AdminUsersPage.module.css"
+import { ProfileShortDto } from "../../services/user.service.ts";
+import styles from "../../pages/administration/styles/AdminUsersPage.module.css"
 import {useTranslation} from "react-i18next";
 
 interface UserCardListProps {

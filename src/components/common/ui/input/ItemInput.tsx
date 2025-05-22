@@ -5,6 +5,7 @@ interface ItemInputProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     type?: string;
+    placeholder?: string;
 }
 
 export const ItemInput = (props: ItemInputProps) => {
@@ -13,7 +14,9 @@ export const ItemInput = (props: ItemInputProps) => {
             <input className={styles.item_input}
                    value={props.value}
                    type={props.type}
-                   onChange={props.onChange}></input>
+                   onChange={props.onChange}
+                   placeholder={props.placeholder}
+            min={1}></input>
 
         </div>
     )

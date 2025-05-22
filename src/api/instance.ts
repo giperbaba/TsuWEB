@@ -9,6 +9,9 @@ const instance: AxiosInstance = axios.create({
     headers: {
         Accept: 'application/json',
     },
+    paramsSerializer: {
+        indexes: null
+    }
 });
 
 // request interceptor
