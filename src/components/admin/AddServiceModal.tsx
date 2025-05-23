@@ -28,6 +28,8 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [logoName, setLogoName] = useState<string | null>(null);
 
+    const [havePhoto, setHavePhoto] = useState<boolean>(false);
+
     useEffect(() => {
         const loadImage = async () => {
             if (serviceToEdit?.logo?.id) {
@@ -35,6 +37,7 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
                     const url = await fetchFileById(serviceToEdit.logo.id);
                     setLogoUrl(url);
                     setLogoName(serviceToEdit.logo.name);
+                    setHavePhoto(true);
                 } catch (err) {
                     console.error("Ошибка при получении логотипа", err);
                 }
@@ -55,14 +58,19 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
             return;
         }
 
+
+        const finalLogo = havePhoto ? logoId ? logoId : serviceToEdit?.logo?.id? serviceToEdit?.logo?.id  : null : null
+
         const dto: UsefulServiceEditCreateDto = {
             category,
             title,
             description,
             link,
             termsOfDisctribution,
-            logoId,
+            logoId: finalLogo,
         };
+
+        if (serviceToEdit?.id) if (serviceToEdit.logo?.id) setHavePhoto(true)
 
         const requestFn = serviceToEdit
             ? UsefulServicesService.editService(serviceToEdit.id, dto)
@@ -100,6 +108,16 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
     }, [serviceToEdit, isOpen]);
 
     if (!isOpen) return null;
+
+    const handlePhoto = (id: string | null) => {
+        setLogoId(id);
+        if (id == null) {
+            setHavePhoto(false)
+        }
+        else {
+            setHavePhoto(true);
+        }
+    }
 
     return (
         <div className={styles.modal_overlay}>
@@ -146,7 +164,7 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
                         onChange={(e) => setTermsOfDisctribution(e.target.value)}
                     />
                     <ImageUpload
-                        onUpload={setLogoId}
+                        onUpload={handlePhoto}
                         initialImageUrl={logoUrl}
                         initialFileName={logoName}
                     />

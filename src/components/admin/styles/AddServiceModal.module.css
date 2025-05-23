@@ -122,3 +122,20 @@
     background: none;
     font-family: Raleway, serif;
 }
+
+@media (max-width: 500px) {
+    .buttons_container {
+        justify-content: center;
+    }
+
+    .button_primary {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .button_outlined {
+        padding-left: 10px;
+        padding-right: 10px;
+
+    }
+}

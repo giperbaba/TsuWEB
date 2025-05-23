@@ -4,6 +4,7 @@ import Picture from "../../assets/icons/Picture.tsx";
 import {FileResultDto, FileService} from "../../services/file.service";
 import SvgImageUpload from "../../assets/icons/ImageUpload.tsx";
 import {useTranslation} from "react-i18next";
+import CloseCircle from "../../assets/icons/CloseCircle.tsx";
 
 interface Props {
     onUpload: (id: string | null) => void;
@@ -61,7 +62,7 @@ export default function ImageUpload({ onUpload, initialFileName }: Props) {
                 <div className={styles.uploaded_box}>
                     <Picture />
                     <span>{fileName}</span>
-                    <button className={styles.remove_btn} onClick={removeImage}>✕</button>
+                    <CloseCircle onClick={removeImage}></CloseCircle>
                 </div>
             )}
         </div>
