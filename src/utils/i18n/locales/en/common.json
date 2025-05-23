@@ -93,7 +93,7 @@
     "name": "Service name",
     "image": "Upload image",
     "not_found": "Services not found",
-    "success": "Service successfully created",
+    "success": "Service successfully created or edited",
     "title_validation": "Please, enter a title"
   },
   "events": {

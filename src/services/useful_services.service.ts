@@ -38,7 +38,7 @@ export const UsefulServicesService = {
             params,
         }),
     createService: ( createDto: UsefulServiceEditCreateDto ) => instance.post('/UsefulServices',  createDto ),
-    editService: ( id: string, editDto: UsefulServiceEditCreateDto ) => instance.put(`UsefulServices${id}`, { editDto }),
+    editService: ( id: string, editDto: UsefulServiceEditCreateDto ) => instance.put(`UsefulServices/${id}`,  editDto ),
     deleteService: ( id: string ) => instance.delete(`UsefulServices/${id}` ),
 };
 

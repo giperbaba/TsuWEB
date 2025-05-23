@@ -9,6 +9,6 @@ export interface FileResultDto {
 }
 
 export const FileService = {
-    getAvatar: (id: string) => instance.get(`Files/${id}`, { responseType: "blob" }),
+    getFile: (id: string) => instance.get(`Files/${id}`, { responseType: "blob" }),
     upload: (formData: FormData) => instance.post<FileResultDto>('/Files', formData)
 };

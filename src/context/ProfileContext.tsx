@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ProfileDto, ProfileService } from "../services/profile.service";
 import {getRefreshToken} from "../auth/cookiesService.ts";
-import {fetchAvatarById} from "../pages/administration/AdminItemUserPage.tsx";
+import {fetchFileById} from "../pages/administration/AdminItemUserPage.tsx";
 import defaultAvatar from "../assets/jpg/default_avatar.jpg";
 
 interface ProfileContextType {
@@ -34,7 +34,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
                     return;
                 }
 
-                const url = await fetchAvatarById(data.avatar.id)
+                const url = await fetchFileById(data.avatar.id)
                 setAvatarUrl(url || defaultAvatar);
 
                 return () => {

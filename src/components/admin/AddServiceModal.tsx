@@ -11,6 +11,7 @@ import {
 import {useRequest} from "../../hooks/useRequest.ts";
 import ImageUpload from "./ImageUpload.tsx";
 import {useNotification} from "../../context/NotificationContext.tsx";
+import {fetchFileById} from "../../pages/administration/AdminItemUserPage.tsx";
 
 export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { isOpen: boolean, onClose: () => void, onSuccess: () => void, serviceToEdit?: UsefulServiceDto | null;}) => {
     const { t } = useTranslation('common');
@@ -24,6 +25,27 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
     const [termsOfDisctribution, setTermsOfDisctribution] = useState("");
     const [logoId, setLogoId] = useState<string | null>(null);
 
+    const [logoUrl, setLogoUrl] = useState<string | null>(null);
+    const [logoName, setLogoName] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadImage = async () => {
+            if (serviceToEdit?.logo?.id) {
+                try {
+                    const url = await fetchFileById(serviceToEdit.logo.id);
+                    setLogoUrl(url);
+                    setLogoName(serviceToEdit.logo.name);
+                } catch (err) {
+                    console.error("Ошибка при получении логотипа", err);
+                }
+            } else {
+                setLogoUrl(null);
+                setLogoName(null);
+            }
+        };
+
+        loadImage();
+    }, [serviceToEdit]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -66,7 +88,7 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
             setCategory(serviceToEdit.category);
             setDescription(serviceToEdit.description || "");
             setTermsOfDisctribution(serviceToEdit.termsOfDisctribution || "");
-            setLogoId(serviceToEdit.logo?.id|| null);
+            setLogoId(logoId || null);
         } else {
             setTitle("");
             setLink("");
@@ -123,11 +145,16 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
                         value={termsOfDisctribution}
                         onChange={(e) => setTermsOfDisctribution(e.target.value)}
                     />
-                    <ImageUpload onUpload={setLogoId} />
+                    <ImageUpload
+                        onUpload={setLogoId}
+                        initialImageUrl={logoUrl}
+                        initialFileName={logoName}
+                    />
+
 
                     <div className={styles.buttons_container}>
                         <button className={styles.button_primary} type="submit">{t("common.save")}</button>
-                        <button className={styles.button_outlined} type="submit">{t("common.cancel")}</button>
+                        <button className={styles.button_outlined} onClick={onClose}>{t("common.cancel")}</button>
                     </div>
 
                 </form>
@@ -136,4 +163,3 @@ export const AddServiceModal = ({ isOpen, onClose, onSuccess, serviceToEdit}: { 
     );
 };
 
-//TODO: В редактировании сразу должна быть картинка уже быть вставлена + select категорий можно выбирать несколько

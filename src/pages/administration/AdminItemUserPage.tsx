@@ -51,7 +51,7 @@ export const AdminItemUserPage = () => {
                     return;
                 }
 
-                const url = await fetchAvatarById(data.avatar.id);
+                const url = await fetchFileById(data.avatar.id);
                 setAvatarUrl(url);
 
                 return () => {
@@ -154,13 +154,13 @@ export const AdminItemUserPage = () => {
     )
 }
 
-export async function fetchAvatarById(avatarId: string): Promise<string> {
+export async function fetchFileById(fileId: string): Promise<string> {
     try {
-        const response = await FileService.getAvatar(avatarId)
+        const response = await FileService.getFile(fileId)
         const avatarUrl = URL.createObjectURL(response.data);
         return avatarUrl;
     } catch (error) {
-        console.error('Ошибка при получении аватара', error);
+        console.error('Ошибка при получении файла', error);
         throw error;
     }
 }

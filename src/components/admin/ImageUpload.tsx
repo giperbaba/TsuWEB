@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import styles from "./styles/ImageUpload.module.css";
 import Picture from "../../assets/icons/Picture.tsx";
 import {FileResultDto, FileService} from "../../services/file.service";
@@ -6,12 +6,16 @@ import SvgImageUpload from "../../assets/icons/ImageUpload.tsx";
 import {useTranslation} from "react-i18next";
 
 interface Props {
-    onUpload: (id: string) => void;
+    onUpload: (id: string | null) => void;
+    initialImageUrl?: string | null;
+    initialFileName?: string | null;
 }
 
-export default function ImageUpload({ onUpload }: Props) {
-    const [imageFile, setImageFile] = useState<File | null>(null);
+export default function ImageUpload({ onUpload, initialFileName }: Props) {
+    const [fileName, setFileName] = useState<string | null>(initialFileName || null);
     const { t } = useTranslation('common');
+
+    useEffect(() => {if (initialFileName) setFileName(initialFileName)}, [initialFileName]);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -23,26 +27,24 @@ export default function ImageUpload({ onUpload }: Props) {
         try {
             const response = await FileService.upload(formData);
             const data: FileResultDto = response.data;
-            console.log(data);
 
-            setImageFile(file);
+            setFileName(file.name);
             onUpload(data.id);
-        }
-        catch (err) {
+        } catch (err) {
             console.error("Ошибка загрузки файла", err);
         }
     };
 
     const removeImage = () => {
-        setImageFile(null);
-        onUpload("");
+        setFileName(null);
+        onUpload(null);
     };
 
     return (
         <div className={styles.input_wrapper}>
             <label className={styles.label_choose}>Изображение</label>
 
-            {!imageFile ? (
+            {!fileName ? (
                 <label className={styles.upload_box}>
                     <input
                         type="file"
@@ -51,17 +53,15 @@ export default function ImageUpload({ onUpload }: Props) {
                         accept="image/*"
                     />
                     <span className={styles.upload_prompt}>
-            <SvgImageUpload></SvgImageUpload>
+                        <SvgImageUpload />
                         {t("services.image")}
-          </span>
+                    </span>
                 </label>
             ) : (
                 <div className={styles.uploaded_box}>
                     <Picture />
-                    <span>{imageFile.name}</span>
-                    <button className={styles.remove_btn} onClick={removeImage}>
-                        ✕
-                    </button>
+                    <span>{fileName}</span>
+                    <button className={styles.remove_btn} onClick={removeImage}>✕</button>
                 </div>
             )}
         </div>

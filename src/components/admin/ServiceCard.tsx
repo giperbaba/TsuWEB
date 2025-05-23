@@ -1,6 +1,6 @@
 import {UsefulServiceCategory, UsefulServiceDto} from "../../services/useful_services.service.ts";
 import styles from "../../pages/administration/styles/AdminUsersPage.module.css"
-import {fetchAvatarById} from "../../pages/administration/AdminItemUserPage.tsx";
+import {fetchFileById} from "../../pages/administration/AdminItemUserPage.tsx";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import EditService from "../../assets/icons/EditService.tsx";
@@ -25,7 +25,7 @@ export const ServiceCard = (props: ServiceCardProps) => {
             if (!props.service || !props.service.id) return;
 
             if (props.service.logo !== null) {
-                const url = await fetchAvatarById(props.service.logo.id);
+                const url = await fetchFileById(props.service.logo.id);
                 setPictureUrl(url);
             }
             else {
