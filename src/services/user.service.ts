@@ -1,5 +1,6 @@
 import instance from "../api/instance.ts";
-import {ProfileDto} from "./profile.service.ts";
+import {Gender, ProfileDto} from "./profile.service.ts";
+import {FileResultDto} from "./file.service.ts";
 
 export interface ProfileShortDtoPagedListWithMetadata {
     results: ProfileShortDto[];
@@ -26,6 +27,17 @@ export interface PagedListMetaData {
     isLastPage: boolean;
     firstItemOnPage: number;
     lastItemOnPage: number;
+}
+
+export interface UserShortDto {
+    id: string;
+    lastName: string;
+    firstName: string;
+    patronymic: string;
+    birthDate: string;
+    gender: Gender;
+    email: string;
+    avatar: FileResultDto
 }
 
 export const UserService = {

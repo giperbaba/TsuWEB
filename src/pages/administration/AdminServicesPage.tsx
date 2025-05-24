@@ -44,8 +44,6 @@ export const AdminServicesPage = () => {
             params.append('page', currentPage.toString());
             params.append('pageSize', pageSize.toString());
 
-            console.log(params.toString());
-
             const response = await request(
                 UsefulServicesService.getServices(
                     params

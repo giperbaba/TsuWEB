@@ -189,21 +189,6 @@
     text-decoration: underline;
 }
 
-.search_button {
-    border: none;
-    width: 20%;
-    border-radius: 8px;
-    padding: 12px 30px 12px 30px;
-    cursor: pointer;
-
-    font-weight: 400;
-    font-size: 16px;
-
-    background: #375FFF;
-    font-family: Roboto, serif;
-    color: #FFFFFF;
-}
-
 /*text*/
 .card_header_text {
     font-family: Raleway;
@@ -381,9 +366,9 @@
     leading-trim: Cap height;
     line-height: 120%;
     color: #3A3A3A;
-    white-space: nowrap;       /* Запрещаем перенос строк */
-    overflow: hidden;          /* Скрываем содержимое, выходящее за границы */
-    text-overflow: ellipsis;   /* Добавляем многоточие */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     max-width: 100%;
 }
 

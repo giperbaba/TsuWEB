@@ -97,7 +97,24 @@
     "title_validation": "Please, enter a title"
   },
   "events": {
-    "events": "Events"
+    "events": "Events",
+    "add": "Add event",
+    "search": "Search",
+    "name": "Event name",
+    "filters": "Filters",
+    "search_bar": "Search bar",
+    "type": "Event type",
+    "auditory": "Audience",
+    "date": "Event date(s)",
+    "format": "Event format",
+    "start_time": "Start time",
+    "end_time": "End time",
+    "in_process": "In progress",
+    "archive": "Archive",
+    "ended": "Ended",
+    "active": "Active",
+    "draft": "Draft",
+    "status": "Status"
   },
   "certificates": {
     "certificates": "Certificates"
@@ -111,6 +128,7 @@
     "search": "SEARCH",
     "placeholder": "Enter your full name",
     "no_users": "Users not found",
+    "no_events": "Events not found",
     "data": "Individual data"
   }
 }
