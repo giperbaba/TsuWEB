@@ -180,8 +180,8 @@ export const AdminEventsPage = () => {
                         </div>
 
                         <div className={styles.input_wrapper}>
-                            <label className={styles.label_choose}>{t("events.format")}</label>
-                            <input className={styles.item_input_choose} value={format} type="date"
+                            <label className={styles.label_choose}>{t("events.search_date")}</label>
+                            <input className={styles.item_input_choose} value={date} type="date"
                                     onChange={(e) => setDate(e.target.value)}>
 
                             </input>
@@ -214,5 +214,3 @@ export const AdminEventsPage = () => {
         </div>
     )
 }
-
-//TODO: адаптация

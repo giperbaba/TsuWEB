@@ -114,4 +114,12 @@
     .item_event {
         flex-direction: column;
     }
+
+    .section_item_block {
+        gap: 18px;
+    }
+
+    .event_buttons {
+        align-self: end;
+    }
 }
