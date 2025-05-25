@@ -3,36 +3,42 @@ import {useRequest} from "../../hooks/useRequest.ts";
 import React, {useEffect, useState} from "react";
 import {PagedListMetaData} from "../../services/user.service.ts";
 import styles from "./styles/AdminEventsPage.module.css";
-import {data, Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AddService from "../../assets/icons/AddService.tsx";
 import {Pagination} from "@mui/material";
 import {EventFormat, EventService, EventShortDto, EventStatus, EventType} from "../../services/event.service.ts";
 import {EventCard} from "../../components/admin/EventCard.tsx";
 import {ItemInput} from "../../components/common/ui/input/ItemInput.tsx";
 import SvgFilter from "../../assets/icons/Filter.tsx";
+import { useSearchParams } from "react-router-dom";
 
 export const AdminEventsPage = () => {
     const { t } = useTranslation('common');
     const { request } = useRequest();
+    const navigate = useNavigate();
 
     const [events, setEvents] = useState<EventShortDto[]>([]);
     const [metadata, setMetadata] = useState<PagedListMetaData | null>(null);
 
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 15;
-
-    const [isAddingModalOpen, setIsAddingModalOpen] = useState(false);
 
     const [eventToEdit, setEventToEdit] = useState<EventShortDto | null>(null);
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const [name, setName] = useState<string>('');
-    const [status, setStatus] = useState<string>('');
-    const [type, setType] = useState<string>('');
-    const [format, setFormat] = useState<string>('');
-    const [date, setDate] = useState<string>('');
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const getParam = (key: string) => searchParams.get(key) || '';
+
+    const [name, setName] = useState<string>(() => getParam("name"));
+    const [status, setStatus] = useState<string>(() => getParam("status"));
+    const [type, setType] = useState<string>(() => getParam("type"));
+    const [format, setFormat] = useState<string>(() => getParam("format"));
+    const [date, setDate] = useState<string>(() => getParam("date"));
+    const [currentPage, setCurrentPage] = useState<number>(() =>
+        parseInt(searchParams.get("page") || "1")
+    );
 
     const fetchEvents = async () => {
         setLoading(true);
@@ -64,8 +70,26 @@ export const AdminEventsPage = () => {
     };
 
     useEffect(() => {
+        updateSearchParams();
         fetchEvents();
-    }, [currentPage]);
+    }, [name, status, type, format, date, currentPage]);
+
+    const updateSearchParams = () => {
+        const params: any = {
+            name,
+            status,
+            type,
+            format,
+            date,
+            page: currentPage,
+        };
+
+        Object.keys(params).forEach(
+            key => (params[key] === '' || params[key] == null) && delete params[key]
+        );
+
+        setSearchParams(params);
+    };
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
@@ -106,7 +130,7 @@ export const AdminEventsPage = () => {
                     {t("administration.administration")}
                 </Link>
                 <span className={styles.breadcrumb_separator}> / </span>
-                <Link to="/admin/usefulservices" className={styles.breadcrumb_active}>
+                <Link to="/admin/events" className={styles.breadcrumb_active}>
                     {t("administration.events")}
                 </Link>
             </div>
@@ -117,7 +141,7 @@ export const AdminEventsPage = () => {
 
             <button
                 className={styles.add_event_button}
-                onClick={() => setIsAddingModalOpen(true)}
+                onClick={() => navigate('/admin/events/creating')}
             >
                 {t("events.add")} <AddService/>
             </button>

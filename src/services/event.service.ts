@@ -49,22 +49,22 @@ export interface EventCreateDto {
     title: string;
     description: string;
     digestText: string;
-    pictureId: string;
+    pictureId: string | null;
     isTimeFromNeeded: boolean;
-    dateTimeFrom: string;
+    dateTimeFrom: Date | null;
     isTimeToNeeded: boolean;
-    dateTimeTo: string;
+    dateTimeTo: Date | null;
     link: string;
     addressName: string;
-    latitude: number;
-    longitude: number;
+    latitude: number | null;
+    longitude: number | null;
     isRegistrationRequired: boolean;
     registrationLastDate: string;
     isDigestNeeded: boolean;
     notificationText: string;
-    type: EventType;
-    format: EventFormat;
-    auditory: EventAuditory;
+    type: string;
+    format: string;
+    auditory: string;
 }
 
 export interface EventEditDto extends EventCreateDto {

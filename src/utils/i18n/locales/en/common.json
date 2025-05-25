@@ -114,7 +114,23 @@
     "ended": "Ended",
     "active": "Active",
     "draft": "Draft",
-    "status": "Status"
+    "status": "Status",
+    "creating": "Creating an event",
+    "describe": "Event description",
+    "register": "Registration required",
+    "notification": "Event notification",
+    "digest": "Include event in digest",
+    "files": "Files",
+    "upload": "Upload image",
+    "time": "Time",
+    "address": "Address",
+    "address_info": "Event address",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "link": "Link",
+    "audience": "Target audience",
+    "date_end_register": "Registration end date"
+
   },
   "certificates": {
     "certificates": "Certificates"
