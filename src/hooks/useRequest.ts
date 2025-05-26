@@ -19,6 +19,14 @@ export function useRequest() {
         catch (err: any) {
             if (err.response?.status === 500) {
                 navigate('/internalservererror');
+            } else if (err.response?.data?.errors) {
+                const errors = err.response.data.errors;
+                const messages = Object.values(errors).flat() as string[];
+
+                messages.forEach((message) => {
+                    notify('error', message);
+                });
+
             } else {
                 notify('error', options?.errorMessage ?? 'Что-то пошло не так');
             }

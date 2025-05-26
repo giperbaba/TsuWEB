@@ -59,12 +59,12 @@ export interface EventCreateDto {
     latitude: number | null;
     longitude: number | null;
     isRegistrationRequired: boolean;
-    registrationLastDate: string;
+    registrationLastDate: Date | null;
     isDigestNeeded: boolean;
     notificationText: string;
-    type: string;
-    format: string;
-    auditory: string;
+    type: EventType | undefined;
+    format: EventFormat | undefined;
+    auditory: EventAuditory | undefined;
 }
 
 export interface EventEditDto extends EventCreateDto {

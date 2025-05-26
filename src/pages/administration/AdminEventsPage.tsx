@@ -23,8 +23,6 @@ export const AdminEventsPage = () => {
     const [loading, setLoading] = useState(false);
     const pageSize = 15;
 
-    const [eventToEdit, setEventToEdit] = useState<EventShortDto | null>(null);
-
     const [isOpen, setIsOpen] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -113,8 +111,7 @@ export const AdminEventsPage = () => {
     };
 
     const handleEditEvent = (event: EventShortDto) => {
-        setEventToEdit(event);
-        setIsAddingModalOpen(true);
+        navigate(`/admin/events/editing/${event.id}`);
     };
 
     return (

@@ -1,38 +1,48 @@
 import {useTranslation} from "react-i18next";
 import {useRequest} from "../../hooks/useRequest.ts";
 import styles from "./styles/AdminAddEventPage.module.css";
-import {Link, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
-import {ItemInput} from "../../components/common/ui/input/ItemInput.tsx";
-import {ItemSwitch} from "../../components/common/ui/switch/ItemSwitch.tsx";
-import {EventAuditory, EventCreateDto, EventFormat, EventService, EventType} from "../../services/event.service.ts";
-import ItemEditor from "../../components/admin/ItemEditor.tsx";
-import ImageUpload from "../../components/admin/ImageUpload.tsx";
-import {DateTimePicker} from "../../components/admin/DateTimePicker.tsx";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {
+    EventAuditory,
+    EventEditDto,
+    EventFormat,
+    EventService,
+    EventType
+} from "../../services/event.service.ts";
 import {useNotification} from "../../context/NotificationContext.tsx";
+import {ItemInput} from "../../components/common/ui/input/ItemInput.tsx";
+import ItemEditor from "../../components/admin/ItemEditor.tsx";
+import {DateTimePicker} from "../../components/admin/DateTimePicker.tsx";
+import {ItemSwitch} from "../../components/common/ui/switch/ItemSwitch.tsx";
+import ImageUpload from "../../components/admin/ImageUpload.tsx";
+import {fetchFileById} from "./AdminItemUserPage.tsx";
 
-export const AdminAddEventPage = () => {
+export const AdminEditEventPage = () => {
     const { t } = useTranslation('common');
     const { request } = useRequest();
     const navigate = useNavigate();
     const { notify } = useNotification();
+    const { id } = useParams();
 
-    const [name, setName] = useState<string>('');
-    const [description, setDescription] = useState<string>('');
-    const [register, setRegister] = useState<boolean>(false);
-    const [address, setAddress] = useState<string>('');
+    const [loading, setLoading] = useState(true);
 
-    const [type, setType] = useState<EventType | undefined>(undefined);
-    const [format, setFormat] = useState<EventFormat | undefined>(EventFormat.Online);
-    const [audience, setAudience] = useState<EventAuditory | undefined>(undefined);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [register, setRegister] = useState(false);
+    const [address, setAddress] = useState('');
+
+    const [type, setType] = useState<EventType | undefined>();
+    const [format, setFormat] = useState<EventFormat | undefined>();
+    const [audience, setAudience] = useState<EventAuditory | undefined>();
 
     const [longitude, setLng] = useState<number>();
     const [latitude, setLatitude] = useState<number>();
 
-    const [link, setLink] = useState<string>('');
-    const [notification, setNotification] = useState<string>('');
-    const [isDigest, setIsDigest] = useState<boolean>(false);
-    const [digest, setDigest] = useState<string>('');
+    const [link, setLink] = useState('');
+    const [notificationText, setNotificationText] = useState('');
+    const [isDigest, setIsDigest] = useState(false);
+    const [digest, setDigest] = useState('');
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [withStartTime, setWithStartTime] = useState(true);
@@ -46,79 +56,128 @@ export const AdminAddEventPage = () => {
 
     const handlePhoto = (id: string | null) => {
         setLogoId(id);
-        if (id == null) {
-            setHavePhoto(false)
-        }
-        else {
-            setHavePhoto(true);
-        }
-    }
+        setHavePhoto(!!id);
+    };
+
+    useEffect(() => {
+        if (!id) return;
+
+        (async () => {
+            try {
+                const data = await request(EventService.getEventById(id));
+
+                console.log(data)
+
+                if (data) {
+                    setName(data.data.title);
+                    setDescription(data.data.description);
+                    setDigest(data.data.digestText ?? '');
+                    setLogoId(data.data.picture?.id ?? null);
+                    setHavePhoto(!!data.data.picture);
+                    setWithStartTime(data.data.isTimeFromNeeded);
+                    setStartDate(new Date(data.data.dateTimeFrom));
+                    setWithEndTime(data.data.isTimeToNeeded);
+                    setEndDate(new Date(data.data.dateTimeTo));
+                    setLink(data.data.link ?? '');
+                    setAddress(data.data.addressName ?? '');
+                    setLatitude(data.data.latitude ?? undefined);
+                    setLng(data.data.longitude ?? undefined);
+                    setRegister(data.data.isRegistrationRequired);
+                    setEndDateRegister(new Date(data.data.registrationLastDate));
+                    setIsDigest(data.data.isDigestNeeded);
+                    setNotificationText(data.data.notificationText ?? '');
+                    setType(data.data.type);
+                    setFormat(data.data.format);
+                    setAudience(data.data.auditory);
+
+                    const loadImage = async () => {
+                        if (data.data.picture.id) {
+                            try {
+                                const url = await fetchFileById(data.data.picture.id);
+                                setLogoUrl(url);
+                                setLogoName(data.data.picture.name);
+                                setHavePhoto(true);
+                            } catch (err) {
+                                console.error("Ошибка при получении логотипа события", err);
+                            }
+                        }
+                    };
+
+                    try {
+                        loadImage();
+                    }
+                    catch (error) {
+                        setLogoUrl(null)
+                    }
+                }
+            }
+            catch (err) {
+                console.error("Ошибка загрузки данных события", err);
+            } finally {
+                setLoading(false);
+            }
+
+        })();
+
+
+    }, [id]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (name.length <= 0) {
-            notify('warning', t("services.title_validation"));
+        if (!name || !startDate) {
+            notify("warning", t("events.required_date"));
             return;
         }
 
-        //const finalLogo = havePhoto ? logoId ? logoId : serviceToEdit?.logo?.id? serviceToEdit?.logo?.id  : null : null
-        const finalLogo = logoId ? logoId : null;
-        const finalLatitude = latitude ? latitude : null;
-        const finalLongitude = longitude ? longitude : null;
-
-        if (!startDate) {
-            notify("warning", t("events.required_date"))
+        if ( (format == EventFormat.Online && !link)) {
+            notify("warning", t("events.required_link"));
             return;
         }
 
-        if (format == EventFormat.Online && link == '') {
-            notify("warning", t("events.required_link"))
+        if (format == EventFormat.Offline && (address == "") && (!latitude) && (!longitude)) {
+            notify("warning", t("events.required_address"))
             return;
         }
 
-        const dto: EventCreateDto = {
+        const finalLogo = havePhoto ? logoId : null;
+
+        const dto: EventEditDto = {
+            id: id!,
             title: name,
-            description: description,
+            description,
             digestText: digest,
             pictureId: finalLogo,
             isTimeFromNeeded: withStartTime,
             dateTimeFrom: startDate,
             isTimeToNeeded: withEndTime,
             dateTimeTo: endDate,
-            link: link,
-            addressName: address,
-            latitude: finalLatitude,
-            longitude: finalLongitude,
+            link: format == EventFormat.Online ? link : '',
+            addressName: format == EventFormat.Offline ? address : '',
+            latitude: format == EventFormat.Offline ? latitude ?? null : null,
+            longitude: format == EventFormat.Offline ? longitude ?? null : null,
             isRegistrationRequired: register,
             registrationLastDate: endDateRegister,
             isDigestNeeded: isDigest,
-            notificationText: notification,
-            type: type,
-            format: format,
+            notificationText,
+            type,
+            format,
             auditory: audience
         };
-        console.log(dto)
-
-
-        //if (serviceToEdit?.id) if (serviceToEdit.logo?.id) setHavePhoto(true)
-
 
         await request(
-            EventService.createEvent(dto),
+            EventService.editEvent(dto),
             {
                 successMessage: t("events.success"),
-                onSuccess: () => {
-                    navigate("/admin/events");
-                }
+                onSuccess: () => navigate("/admin/events")
             }
         );
     };
 
+    if (loading) return <p>Loading...</p>;
+
     return (
         <div className={styles.admin_events_page}>
             <h1 className={styles.title}>{t("administration.administration")}</h1>
-
             <div className={styles.breadcrumb}>
                 <Link to="/profile" className={styles.breadcrumb_link}>
                     {t("common.main")}
@@ -132,13 +191,13 @@ export const AdminAddEventPage = () => {
                     {t("administration.events")}
                 </Link>
                 <span className={styles.breadcrumb_separator}> / </span>
-                <Link to="/admin/events/creating" className={styles.breadcrumb_active}>
-                    {t("events.creating")}
+                <Link to="/admin/events/editing" className={styles.breadcrumb_active}>
+                    {t("events.edit_event")}
                 </Link>
             </div>
 
             <h2 className={`${styles.title_name}`}>
-                {t("events.creating")}
+                {t("events.edit_event")}
             </h2>
 
             <div className={styles.section}>
@@ -196,8 +255,8 @@ export const AdminAddEventPage = () => {
 
                 {register ? <div className={styles.input_wrapper_full}>
                     <label className={styles.label_choose}>{t("events.date_end_register")}</label>
-                    <input className={styles.item_input_choose} value={endDateRegister} type="date"
-                           onChange={(e) => setEndDateRegister(e.target.value)}>
+                    <input className={styles.item_input_choose} value={endDateRegister ? endDateRegister.toISOString().slice(0, 10) : ''} type="date"
+                           onChange={(e) => setEndDateRegister(new Date(e.target.value))}>
 
                     </input>
                 </div> : <></>}
@@ -247,7 +306,7 @@ export const AdminAddEventPage = () => {
 
 
                 <p className={styles.base_text_for_adding}>{t("events.notification")}</p>
-                <ItemEditor value={notification} onChange={setNotification}/>
+                <ItemEditor value={notificationText} onChange={setNotificationText}/>
 
                 <p className={styles.base_text_for_adding}>{t("events.files")}</p>
                 <ImageUpload
@@ -257,11 +316,14 @@ export const AdminAddEventPage = () => {
                 />
 
                 <div className={styles.buttons_container}>
-                    <button className={styles.button_primary} type="submit" onClick={handleSubmit}>{t("common.save")}</button>
-                    <button className={styles.button_outlined} onClick={() => navigate('/admin/events')}>{t("common.cancel")}</button>
+                    <button className={styles.button_primary} type="submit"
+                            onClick={handleSubmit}>{t("common.save")}</button>
+                    <button className={styles.button_outlined}
+                            onClick={() => navigate('/admin/events')}>{t("common.cancel")}</button>
                 </div>
+
 
             </div>
         </div>
-    )
-}
+    );
+};

@@ -82,3 +82,8 @@
 ._datepicker_container_z4uwr_82 {
     width: 80%;
 }
+
+.required {
+    color: red;
+    margin-left: 4px;
+}

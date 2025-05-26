@@ -13,6 +13,7 @@ import {AdminServicesPage} from "./pages/administration/AdminServicesPage.tsx";
 import {AdminUsersPage} from "./pages/administration/AdminUsersPage.tsx";
 import {AdminItemUserPage} from "./pages/administration/AdminItemUserPage.tsx";
 import {AdminAddEventPage} from "./pages/administration/AdminAddEventPage.tsx";
+import {AdminEditEventPage} from "./pages/administration/AdminEditEventPage.tsx";
 
 function App() {
     return (
@@ -31,6 +32,8 @@ function App() {
                 <Route path="/admin/usefulservices" element={<AdminServicesPage />} />
                 <Route path="/admin/events" element={<AdminEventsPage />} />
                 <Route path="/admin/events/creating" element={<AdminAddEventPage />} />
+                <Route path="/admin/events/editing/:id" element={<AdminEditEventPage />} />
+
 
                 <Route path="/usefulservices" element={<ServicesPage />} />
                 <Route path="/certificates" element={<CertificatesPage />} />

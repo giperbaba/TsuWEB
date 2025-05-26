@@ -29,6 +29,8 @@ export default function ImageUpload({ onUpload, initialFileName }: Props) {
             const response = await FileService.upload(formData);
             const data: FileResultDto = response.data;
 
+            console.log(data);
+
             setFileName(file.name);
             onUpload(data.id);
         } catch (err) {

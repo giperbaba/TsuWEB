@@ -129,7 +129,12 @@
     "latitude": "Latitude",
     "link": "Link",
     "audience": "Target audience",
-    "date_end_register": "Registration end date"
+    "date_end_register": "Registration end date",
+    "required_date": "Event start date is required",
+    "required_link": "If event is online - link is required",
+    "required_address": "If the event is held offline - address, longitude and latitude are required",
+    "edit_event": "Editing an event",
+    "success": "Event successfully created or edited"
 
   },
   "certificates": {

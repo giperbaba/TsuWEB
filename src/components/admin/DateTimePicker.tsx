@@ -9,6 +9,7 @@ interface DateTimePickerProps {
     onDateChange: (date: Date | null) => void;
     withTime: boolean;
     onToggleTime: () => void;
+    required?: boolean
 }
 
 export const DateTimePicker = ({
@@ -16,12 +17,13 @@ export const DateTimePicker = ({
                                    date,
                                    onDateChange,
                                    withTime,
-                                   onToggleTime
+                                   onToggleTime,
+                                   required = false
                                }: DateTimePickerProps) => {
     return (
         <div className={styles.inputWrapper}>
             <div className={styles.datepicker_container}>
-                <label className={styles.label}>{label}</label>
+                <label className={styles.label}>{label} </label>
                 <DatePicker
                     selected={date}
                     onChange={onDateChange}
@@ -31,6 +33,7 @@ export const DateTimePicker = ({
                     dateFormat={withTime ? "dd.MM.yyyy HH:mm" : "dd.MM.yyyy"}
                     placeholderText={withTime ? "ДД.ММ.ГГ. ЧЧ:ММ" : "ДД.ММ.ГГ."}
                     className={styles.item_input_choose}
+                    required={required}
                 />
             </div>
             <ItemSwitch checked={withTime} onChange={onToggleTime} label="Время" />

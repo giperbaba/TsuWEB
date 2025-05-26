@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import EditService from "../../assets/icons/EditService.tsx";
 import DeleteService from "../../assets/icons/DeleteService.tsx";
 import defaultAvatar from "../../assets/jpg/default_avatar.jpg";
-import {EventAuditory, EventFormat, EventShortDto, EventStatus} from "../../services/event.service.ts";
+import {EventAuditory, EventFormat, EventShortDto, EventStatus, EventType} from "../../services/event.service.ts";
 
 interface EventCardProps {
     event: EventShortDto
@@ -50,7 +50,7 @@ export const EventCard = (props: EventCardProps) => {
                 <div className={styles.section_row}>
                     <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t("events.type")}</div>
-                        <div className={styles.section_base_text}>{props.event.type}</div>
+                        <div className={styles.section_base_text}>{props.event.type == EventType.Open ? "Открытое" : props.event.type == EventType.Close ? "Закрытое" : "Неизвестно" }</div>
                     </div>
                     <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t("events.auditory")}</div>
@@ -76,15 +76,15 @@ export const EventCard = (props: EventCardProps) => {
                 </div>
 
                 <div className={styles.section_row}>
-                    <div className={styles.section_item_block}>
+                    {props.event.dateTimeFrom ? <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t("events.start_time")}</div>
                         <div
                             className={styles.section_base_text}>{formatTime(props.event.dateTimeFrom)}</div>
-                    </div>
-                    <div className={styles.section_item_block}>
+                    </div> : <></>}
+                    {props.event.dateTimeTo ? <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t("events.end_time")}</div>
                         <div className={styles.section_base_text}>{formatTime(props.event.dateTimeTo)}</div>
-                    </div>
+                    </div> : <></>}
                 </div>
             </div>
 

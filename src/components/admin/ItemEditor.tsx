@@ -11,12 +11,12 @@ export default function ItemEditor({ value, onChange }: ItemEditorProps) {
 
     return (
         <Editor
-            apiKey="saq0ocgdsr9b8ku32huns1z7x09lrifh6exonjvpm3zda8ju" // TinyMCE API key
+            apiKey="saq0ocgdsr9b8ku32huns1z7x09lrifh6exonjvpm3zda8ju"
             onInit={(_, editor) => (editorRef.current = editor)}
             value={value}
             onEditorChange={onChange}
             init={{
-                height: 150,
+                height: 180,
                 menubar: false,
                 branding: false,
                 plugins: [
@@ -25,10 +25,8 @@ export default function ItemEditor({ value, onChange }: ItemEditorProps) {
                     'code', 'fullscreen', 'insertdatetime', 'media',
                     'table', 'help', 'wordcount'
                 ],
-                toolbar:
-                    'undo redo | fontselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link table code | removeformat',
-                font_formats:
-                    'Roboto=Roboto,sans-serif;Raleway=Raleway,sans-serif;Arial=arial,helvetica,sans-serif;Times New Roman=times new roman,times;Courier New=courier new,courier;',
+                toolbar: 'undo redo | fontselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link table code | removeformat',
+                font_formats: 'Roboto=Roboto,sans-serif;Raleway=Raleway,sans-serif;Arial=arial,helvetica,sans-serif;Times New Roman=times new roman,times;Courier New=courier new,courier;',
                 content_style: `
                     @import url('https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&display=swap');
                     body {
@@ -38,7 +36,21 @@ export default function ItemEditor({ value, onChange }: ItemEditorProps) {
                 `,
                 skin: 'oxide',
                 content_css: 'default',
-                toolbar_sticky: true,
+
+                promotion: false,
+                toolbar_mode: 'sliding',
+                tinymce_telemetry: false,
+                privacy_level: 'high',
+
+                external_plugins: {},
+                event_root: '',
+
+                licenseKey: 'gpl',
+
+                autoresize_bottom_margin: 10,
+                resize: true,
+                min_height: 180,
+                max_height: 500
             }}
         />
     );
