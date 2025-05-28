@@ -10,6 +10,7 @@ import ItemEditor from "../../components/admin/ItemEditor.tsx";
 import ImageUpload from "../../components/admin/ImageUpload.tsx";
 import {DateTimePicker} from "../../components/admin/DateTimePicker.tsx";
 import {useNotification} from "../../context/NotificationContext.tsx";
+import {AddressInput} from "../../components/admin/AddressInput.tsx";
 
 export const AdminAddEventPage = () => {
     const { t } = useTranslation('common');
@@ -40,9 +41,24 @@ export const AdminAddEventPage = () => {
     const [endDateRegister, setEndDateRegister] = useState<Date | null>(null);
 
     const [logoId, setLogoId] = useState<string | null>(null);
-    const [logoUrl, setLogoUrl] = useState<string | null>(null);
-    const [logoName, setLogoName] = useState<string | null>(null);
-    const [havePhoto, setHavePhoto] = useState<boolean>(false);
+    const [, setHavePhoto] = useState<boolean>(false);
+
+    const handleAddressChange = (selected: any) => {
+        setAddress(selected.value);
+
+        if (selected?.data?.geo_lat && selected?.data?.geo_lon) {
+            setLatitude(selected.data.geo_lat);
+            setLng(selected.data.geo_lon);
+        } else {
+            setLatitude(undefined);
+            setLng(undefined);
+        }
+
+        if (!selected || selected === '') {
+            setLatitude(undefined);
+            setLng(undefined);
+        }
+    };
 
     const handlePhoto = (id: string | null) => {
         setLogoId(id);
@@ -62,18 +78,42 @@ export const AdminAddEventPage = () => {
             return;
         }
 
-        //const finalLogo = havePhoto ? logoId ? logoId : serviceToEdit?.logo?.id? serviceToEdit?.logo?.id  : null : null
         const finalLogo = logoId ? logoId : null;
         const finalLatitude = latitude ? latitude : null;
         const finalLongitude = longitude ? longitude : null;
+
+        if (!name) {
+            notify("warning", t("services.title_validation"));
+            return;
+        }
 
         if (!startDate) {
             notify("warning", t("events.required_date"))
             return;
         }
 
-        if (format == EventFormat.Online && link == '') {
-            notify("warning", t("events.required_link"))
+        if ( (format == EventFormat.Online && !link)) {
+            notify("warning", t("events.required_link"));
+            return;
+        }
+
+        if (format == EventFormat.Offline && (address == "") && (!latitude) && (!longitude)) {
+            notify("warning", t("events.required_address"))
+            return;
+        }
+
+        if (startDate && endDate && (startDate > endDate)) {
+            notify("warning", t("events.uncorrected_date"))
+            return;
+        }
+
+        if (startDate && endDateRegister && (endDateRegister > startDate)) {
+            notify("warning", t("events.uncorrected_register_date"))
+            return;
+        }
+
+        if (longitude && (address == "") || latitude && (address == "")) {
+            notify("warning", t("events.required_address"))
             return;
         }
 
@@ -91,7 +131,9 @@ export const AdminAddEventPage = () => {
             latitude: finalLatitude,
             longitude: finalLongitude,
             isRegistrationRequired: register,
-            registrationLastDate: endDateRegister,
+            registrationLastDate: endDateRegister
+                ? endDateRegister
+                : null,
             isDigestNeeded: isDigest,
             notificationText: notification,
             type: type,
@@ -196,8 +238,9 @@ export const AdminAddEventPage = () => {
 
                 {register ? <div className={styles.input_wrapper_full}>
                     <label className={styles.label_choose}>{t("events.date_end_register")}</label>
-                    <input className={styles.item_input_choose} value={endDateRegister} type="date"
-                           onChange={(e) => setEndDateRegister(e.target.value)}>
+                    <input className={styles.item_input_choose}
+                           value={endDateRegister ? endDateRegister.toISOString().slice(0, 10) : ''} type="date"
+                           onChange={(e) => setEndDateRegister(new Date(e.target.value))}>
 
                     </input>
                 </div> : <></>}
@@ -218,8 +261,13 @@ export const AdminAddEventPage = () => {
                 </div> : <div className={styles.hidden_container}>
                     <p className={styles.text_info}>{t("events.address_info")}</p>
 
-                    <ItemInput label={t("events.address")} value={address}
-                               onChange={(e) => setAddress(e.target.value)}></ItemInput>
+
+                    <AddressInput
+                        label={t("events.address")}
+                        value={address}
+                        onChange={setAddress}
+                        onSelect={handleAddressChange}
+                    />
 
                     <div className={styles.row_container}>
                         <div className={styles.input_wrapper}>
@@ -252,8 +300,6 @@ export const AdminAddEventPage = () => {
                 <p className={styles.base_text_for_adding}>{t("events.files")}</p>
                 <ImageUpload
                     onUpload={handlePhoto}
-                    initialImageUrl={logoUrl}
-                    initialFileName={logoName}
                 />
 
                 <div className={styles.buttons_container}>

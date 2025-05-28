@@ -31,6 +31,17 @@
     vertical-align: middle;
 }
 
+.event_link {
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+}
+
+.event_link:hover {
+    color: #666666;
+    cursor: pointer;
+}
+
 .section_name_text {
     height: 17px;
     font-family: Raleway;

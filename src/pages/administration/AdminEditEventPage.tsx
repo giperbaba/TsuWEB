@@ -17,6 +17,7 @@ import {DateTimePicker} from "../../components/admin/DateTimePicker.tsx";
 import {ItemSwitch} from "../../components/common/ui/switch/ItemSwitch.tsx";
 import ImageUpload from "../../components/admin/ImageUpload.tsx";
 import {fetchFileById} from "./AdminItemUserPage.tsx";
+import {AddressInput} from "../../components/admin/AddressInput.tsx";
 
 export const AdminEditEventPage = () => {
     const { t } = useTranslation('common');
@@ -59,6 +60,23 @@ export const AdminEditEventPage = () => {
         setHavePhoto(!!id);
     };
 
+    const handleAddressChange = (selected: any) => {
+        setAddress(selected.value);
+
+        if (selected?.data?.geo_lat && selected?.data?.geo_lon) {
+            setLatitude(selected.data.geo_lat);
+            setLng(selected.data.geo_lon);
+        } else {
+            setLatitude(undefined);
+            setLng(undefined);
+        }
+
+        if (!selected || selected === '') {
+            setLatitude(undefined);
+            setLng(undefined);
+        }
+    };
+
     useEffect(() => {
         if (!id) return;
 
@@ -75,15 +93,15 @@ export const AdminEditEventPage = () => {
                     setLogoId(data.data.picture?.id ?? null);
                     setHavePhoto(!!data.data.picture);
                     setWithStartTime(data.data.isTimeFromNeeded);
-                    setStartDate(new Date(data.data.dateTimeFrom));
+                    setStartDate(data.data.dateTimeFrom ? new Date(data.data.dateTimeFrom) : null);
                     setWithEndTime(data.data.isTimeToNeeded);
-                    setEndDate(new Date(data.data.dateTimeTo));
+                    setEndDate(data.data.dateTimeTo ? new Date(data.data.dateTimeTo) : null);
                     setLink(data.data.link ?? '');
                     setAddress(data.data.addressName ?? '');
                     setLatitude(data.data.latitude ?? undefined);
                     setLng(data.data.longitude ?? undefined);
                     setRegister(data.data.isRegistrationRequired);
-                    setEndDateRegister(new Date(data.data.registrationLastDate));
+                    setEndDateRegister(data.data.registrationLastDate ? new Date(data.data.registrationLastDate) : null);
                     setIsDigest(data.data.isDigestNeeded);
                     setNotificationText(data.data.notificationText ?? '');
                     setType(data.data.type);
@@ -124,8 +142,13 @@ export const AdminEditEventPage = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!name || !startDate) {
-            notify("warning", t("events.required_date"));
+        if (!name) {
+            notify("warning", t("services.title_validation"));
+            return;
+        }
+
+        if (!startDate) {
+            notify("warning", t("events.required_date"))
             return;
         }
 
@@ -135,6 +158,21 @@ export const AdminEditEventPage = () => {
         }
 
         if (format == EventFormat.Offline && (address == "") && (!latitude) && (!longitude)) {
+            notify("warning", t("events.required_address"))
+            return;
+        }
+
+        if (startDate && endDate && (startDate > endDate)) {
+            notify("warning", t("events.uncorrected_date"))
+            return;
+        }
+
+        if (startDate && endDateRegister && (endDateRegister > startDate)) {
+            notify("warning", t("events.uncorrected_register_date"))
+            return;
+        }
+
+        if (longitude && (address == "") || latitude && (address == "")) {
             notify("warning", t("events.required_address"))
             return;
         }
@@ -156,7 +194,9 @@ export const AdminEditEventPage = () => {
             latitude: format == EventFormat.Offline ? latitude ?? null : null,
             longitude: format == EventFormat.Offline ? longitude ?? null : null,
             isRegistrationRequired: register,
-            registrationLastDate: endDateRegister,
+            registrationLastDate: endDateRegister
+                ? endDateRegister
+                : null,
             isDigestNeeded: isDigest,
             notificationText,
             type,
@@ -255,7 +295,8 @@ export const AdminEditEventPage = () => {
 
                 {register ? <div className={styles.input_wrapper_full}>
                     <label className={styles.label_choose}>{t("events.date_end_register")}</label>
-                    <input className={styles.item_input_choose} value={endDateRegister ? endDateRegister.toISOString().slice(0, 10) : ''} type="date"
+                    <input className={styles.item_input_choose}
+                           value={endDateRegister ? endDateRegister.toISOString().slice(0, 10) : ''} type="date"
                            onChange={(e) => setEndDateRegister(new Date(e.target.value))}>
 
                     </input>
@@ -277,8 +318,12 @@ export const AdminEditEventPage = () => {
                 </div> : <div className={styles.hidden_container}>
                     <p className={styles.text_info}>{t("events.address_info")}</p>
 
-                    <ItemInput label={t("events.address")} value={address}
-                               onChange={(e) => setAddress(e.target.value)}></ItemInput>
+                    <AddressInput
+                        label={t("events.address")}
+                        value={address}
+                        onChange={setAddress}
+                        onSelect={handleAddressChange}
+                    />
 
                     <div className={styles.row_container}>
                         <div className={styles.input_wrapper}>

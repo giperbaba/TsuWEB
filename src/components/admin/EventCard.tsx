@@ -6,6 +6,7 @@ import EditService from "../../assets/icons/EditService.tsx";
 import DeleteService from "../../assets/icons/DeleteService.tsx";
 import defaultAvatar from "../../assets/jpg/default_avatar.jpg";
 import {EventAuditory, EventFormat, EventShortDto, EventStatus, EventType} from "../../services/event.service.ts";
+import {Link} from "react-router-dom";
 
 interface EventCardProps {
     event: EventShortDto
@@ -42,9 +43,11 @@ export const EventCard = (props: EventCardProps) => {
             </div>
 
             <div className={styles.section_container}>
-            <p className={styles.title_event}>{props.event.title}</p>
+                <Link to={`/admin/events/${props.event.id}`} key={props.event.id} className={styles.event_link}>
+                    <p className={styles.title_event}>{props.event.title}</p>
+                </Link>
 
-                <div  className={`${styles.menu_item} ${styles[props.event.status.toLowerCase()]}`}>{props.event.status == EventStatus.Archive ? "Архив" :
+                <div className={`${styles.menu_item} ${styles[props.event.status.toLowerCase()]}`}>{props.event.status == EventStatus.Archive ? "Архив" :
                     props.event.status == EventStatus.Draft ? "Черновик" : props.event.status == EventStatus.Actual ? "Активное" : "В процессе"}</div>
 
                 <div className={styles.section_row}>
@@ -76,7 +79,7 @@ export const EventCard = (props: EventCardProps) => {
                 </div>
 
                 <div className={styles.section_row}>
-                    {props.event.dateTimeFrom ? <div className={styles.section_item_block}>
+                    {props.event.dateTimeFrom && props.event.isTimeFromNeeded ? <div className={styles.section_item_block}>
                         <div className={styles.section_name_text}>{t("events.start_time")}</div>
                         <div
                             className={styles.section_base_text}>{formatTime(props.event.dateTimeFrom)}</div>
@@ -101,12 +104,12 @@ export const EventCard = (props: EventCardProps) => {
     )
 }
 
-const formatDate = (isoString: string) => {
+export const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString("ru-RU"); // формат: дд.мм.гггг
 };
 
-const formatTime = (isoString: string) => {
+export const formatTime = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleTimeString("ru-RU", {
         hour: '2-digit',

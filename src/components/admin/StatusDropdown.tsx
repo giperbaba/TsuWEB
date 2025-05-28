@@ -4,15 +4,20 @@ import {EventStatus} from "../../services/event.service.ts";
 import OpenDropdown from "../../assets/icons/OpenDropdown.tsx";
 
 const statusOptions = [
-    { label: "Черновик", value: EventStatus.Draft },
     { label: "Активное", value: EventStatus.Actual },
     { label: "Завершилось", value: EventStatus.Finished },
+    { label: "Черновик", value: EventStatus.Draft },
     { label: "Архив", value: EventStatus.Archive },
 ];
 
-export default function StatusDropdown() {
+interface StatusDropdownProps {
+    value: EventStatus;
+    onChange: (status: EventStatus) => void;
+}
+
+export default function StatusDropdown({ value, onChange }: StatusDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(statusOptions[1]); // по умолчанию "Активное"
+    const selected = statusOptions.find(option => option.value === value) || statusOptions[0];
 
     return (
         <div className={styles.dropdownWrapper}>
@@ -27,16 +32,17 @@ export default function StatusDropdown() {
             {isOpen && (
                 <div className={styles.dropdownMenu}>
                     {statusOptions.map((status) => (
+                        (status.label !== selected.label) ?
                         <button
                             key={status.value}
                             onClick={() => {
-                                setSelected(status);
+                                onChange(status.value);
                                 setIsOpen(false);
                             }}
                             className={`${styles.menuItem} ${styles[status.value.toLowerCase()]}`}
                         >
                             {status.label}
-                        </button>
+                        </button> : <></>
                     ))}
                 </div>
             )}

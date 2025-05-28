@@ -134,8 +134,19 @@
     "required_link": "If event is online - link is required",
     "required_address": "If the event is held offline - address, longitude and latitude are required",
     "edit_event": "Editing an event",
-    "success": "Event successfully created or edited"
-
+    "success": "Event successfully created or edited",
+    "uncorrected_date": "Start date must be before end date",
+    "uncorrected_register_date": "The registration end date must be before the event start date",
+    "desc": "Description",
+    "need_register": "Registration required",
+    "digest_text": "Digest text",
+    "created_by": "Created event",
+    "inside_participant": "Internal participants",
+    "outside_participant": "External participants",
+    "no_inner_participants": "No inner participants",
+    "no_external_participants": "No external participants",
+    "success_edit_status": "Status changed successfully",
+    "error_edit_status": "Failed to change status"
   },
   "certificates": {
     "certificates": "Certificates"
