@@ -170,6 +170,9 @@
 }
 
 @media (max-width: 700px) {
+    .profile_page {
+        padding: 26px;
+    }
     .profile_container {
         flex-direction: column;
     }

@@ -87,6 +87,20 @@
     width: 100%;
 }
 
+.search_button {
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 12px;
+    gap: 10px;
+    border-radius: 8px;
+    padding: 12px 42px 12px 40px;
+    background: #375FFF;
+    border: none;
+    color: #FFFFFF;
+    width: 20%;
+}
+
 /* cards */
 .users_container {
     background: #F9F9F9;

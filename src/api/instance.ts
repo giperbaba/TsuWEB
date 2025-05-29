@@ -42,7 +42,12 @@ instance.interceptors.response.use(
             if (!currentRefreshToken) {
                 removeAccessToken();
                 removeRefreshToken();
-                redirectToLogin();
+
+                const isPublicPage = window.location.pathname.startsWith("/events");
+                if (!isPublicPage) {
+                    redirectToLogin();
+                }
+
                 return Promise.reject(error);
             }
 
@@ -67,7 +72,12 @@ instance.interceptors.response.use(
 
                 removeAccessToken();
                 removeRefreshToken();
-                redirectToLogin();
+
+                const isPublicPage = window.location.pathname.startsWith("/events");
+                if (!isPublicPage) {
+                    redirectToLogin();
+                }
+
                 return Promise.reject(refreshError);
             }
         }
@@ -98,4 +108,20 @@ export async function refreshTokens(refreshToken: string): Promise<RefreshRespon
         }
     );
     return response.data;
+}
+
+export function parseJwt(token: string): any | null {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+            atob(base64)
+                .split('')
+                .map(c => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
+                .join('')
+        );
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        return null;
+    }
 }

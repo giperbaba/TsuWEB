@@ -53,7 +53,7 @@ export const AdminEventsPage = () => {
                     pageSize
                 ),
                 {
-                    errorMessage: "Failed to load events, access denied",
+                    errorMessage: t("common.access_denied"),
                 }
             );
 

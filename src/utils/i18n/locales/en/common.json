@@ -3,7 +3,9 @@
     "main": "Main",
     "loading": "Loading...",
     "save": "SAVE",
-    "cancel": "CANCEL"
+    "cancel": "CANCEL",
+    "access_denied": "Access denied",
+    "not_logged_in": "You are not logged in"
   },
   "titles": {
     "login": "Login to account"
@@ -146,7 +148,13 @@
     "no_inner_participants": "No inner participants",
     "no_external_participants": "No external participants",
     "success_edit_status": "Status changed successfully",
-    "error_edit_status": "Failed to change status"
+    "error_edit_status": "Failed to change status",
+    "will participate": "I WILL PARTICIPATE",
+    "participate": "I PARTICIPATE",
+    "success_register": "You have successfully registered!",
+    "failed_register": "Failed to register",
+    "FIO": "FGs",
+    "register_modal_title": "Event Registration"
   },
   "certificates": {
     "certificates": "Certificates"

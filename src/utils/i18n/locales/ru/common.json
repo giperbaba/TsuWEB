@@ -3,7 +3,9 @@
     "main": "Главная",
     "loading": "Загрузка...",
     "save": "СОХРАНИТЬ",
-    "cancel": "ОТМЕНИТЬ"
+    "cancel": "ОТМЕНИТЬ",
+    "access_denied": "Доступ запрещен",
+    "not_logged_in": "Вы не авторизованы"
   },
   "titles": {
     "login": "Вход в аккаунт"
@@ -143,7 +145,13 @@
     "no_inner_participants": "Нет внутренних участников",
     "no_external_participants": "Нет внешних участников",
     "success_edit_status": "Статус успешно изменен",
-    "error_edit_status": "Не удалось изменить статус"
+    "error_edit_status": "Не удалось изменить статус",
+    "will_participate": "БУДУ УЧАСТВОВАТЬ",
+    "participate": "УЧАСТВУЮ",
+    "success_register": "Вы успешно зарегистрированы!",
+    "failed_register": "Не удалось зарегистрироваться",
+    "FIO": "ФИО",
+    "register_modal_title": "Регистрация на мероприятие"
   },
   "certificates": {
     "certificates": "Справки"

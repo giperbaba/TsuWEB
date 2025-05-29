@@ -105,7 +105,56 @@ export interface EventEditStatusDto {
     newStatus: EventStatus;
 }
 
+export interface IsUserParticipant {
+    isParticipating: boolean;
+}
+
+export interface EventInnerRegisterDto {
+    eventId: string;
+}
+
+export interface EventExternalRegisterDto extends EventInnerRegisterDto {
+    name: string;
+    email: string;
+    phone: string;
+    additionalInfo: string;
+}
+
 export const EventService = {
+    getEventsPublic: (
+        name?: string,
+        eventDate?: string,
+        timezoneOffset: number = 420,
+        page: number = 1,
+        pageSize: number = 20
+    ) => instance.get<EventShortDtoPagedListWithMetadata>('/Events/public', {
+        params: {
+            name,
+            eventDate,
+            timezoneOffset,
+            page,
+            pageSize
+        }
+    }),
+    getEventsPublicWithAuth: (
+        name?: string,
+        eventDate?: string,
+        timezoneOffset: number = 420,
+        page: number = 1,
+        pageSize: number = 20
+    ) => instance.get<EventShortDtoPagedListWithMetadata>('/Events/public/auth', {
+        params: {
+            name,
+            eventDate,
+            timezoneOffset,
+            page,
+            pageSize
+        }
+    }),
+    getEventByIdPublic: (id: string) => instance.get<EventDto>(`/Events/public/${id}`),
+    checkIsUserParticipant: (id: string) => instance.get<IsUserParticipant>(`/Events/is_participant/${id}`), //event id
+    registerInner: (data: EventInnerRegisterDto) => instance.post('/Events/register/inner', data),
+    registerExternal: (data: EventExternalRegisterDto) => instance.post('/Events/register/external', data),
 
     /* admin endpoints */
 

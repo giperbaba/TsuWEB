@@ -33,17 +33,23 @@ export const AdminUsersPage = () => {
 
     const fetchUsers = async () => {
         setLoading(true);
+
+        // Если есть выбранная буква, сбрасываем другие поля поиска
+        const emailParam = selectedLetter ? "" : searchQuery.includes("@") ? searchQuery : "";
+        const nameParam = selectedLetter ? "" : !searchQuery.includes("@") ? searchQuery : "";
+        const filterLastNameParam = selectedLetter || "";
+
         try {
             const response = await request(
                 UserService.getUsers(
-                    searchQuery,
-                    searchQuery,
-                    selectedLetter || "",
+                    emailParam,
+                    nameParam,
+                    filterLastNameParam,
                     currentPage,
                     pageSize
                 ),
                 {
-                    errorMessage: "Failed to load users, access denied",
+                    errorMessage: t("common.access_denied"),
                 }
             );
             setUsers(response.data.results);

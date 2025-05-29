@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import styles from "./Menu.module.css";
 import MenuProfile from "../../../../assets/icons/MenuProfile";
 import MenuAdmin from "../../../../assets/icons/MenuAdmin";
@@ -11,6 +11,8 @@ import {NavLink, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useProfile} from "../../../../context/ProfileContext.tsx";
 import {useMenu} from "../../../../context/MenuContext.tsx";
+import {getAccessToken} from "../../../../auth/cookiesService.ts";
+import {parseJwt} from "../../../../api/instance.ts";
 
 export const Menu = () => {
     const [open, setOpen] = React.useState(true);
@@ -18,6 +20,10 @@ export const Menu = () => {
     const location = useLocation();
     const { avatarUrl } = useProfile();
     const { isMobile, toggleMenu } = useMenu();
+
+    const token = getAccessToken();
+    const parsedToken = token ? parseJwt(token) : null;
+    const isAdmin = parsedToken?.role.toString().toLowerCase() === "admin";
 
     const handleToggleMenu = () => {
         if (isMobile) {
@@ -28,15 +34,20 @@ export const Menu = () => {
         }
     };
 
-    const menuItems = [
-        {path: "/profile", label: t("menu.profile"), icon: MenuProfile},
-        {path: "/admin", label: t("menu.administration"), icon: MenuAdmin},
-        {path: "/certificates", label: t("menu.certificates"), icon: MenuRef},
-        {path: "/usefulservices", label: t("menu.services"), icon: MenuServices},
-        {path: "/events", label: t("menu.events"), icon: MenuEvents},
-    ];
+    interface MenuItem {
+        path: string;
+        label: string;
+        icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+    }
 
-    const pathsWithSubroutes = ["/admin"];
+    const menuItems: MenuItem[] = [
+        { path: "/profile", label: t("menu.profile"), icon: MenuProfile },
+        isAdmin && { path: "/admin", label: t("menu.administration"), icon: MenuAdmin },
+        { path: "/certificates", label: t("menu.certificates"), icon: MenuRef },
+        { path: "/usefulservices", label: t("menu.services"), icon: MenuServices },
+        { path: "/events", label: t("menu.events"), icon: MenuEvents },
+    ].filter((item): item is MenuItem => Boolean(item));
+    const pathsWithSubroutes = ["/admin", "/events"];
 
     return (
         <div className={`${styles.menu} ${open ? styles.menu_open : styles.menu_closed}`}>
