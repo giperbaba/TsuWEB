@@ -87,8 +87,6 @@ export const AdminServicesPage = () => {
             );
             setServices(prev => prev.filter(service => service.id !== serviceId));
 
-            // Если нужно, можно перезапросить список:
-            // await fetchServices();
         } catch (e) {
             console.error(e);
         } finally {
@@ -142,7 +140,7 @@ export const AdminServicesPage = () => {
                 ) : services.length === 0 ? (
                     <p>{t("administration.no_users")}</p>
                 ) : services.map((service) => (
-                    <ServiceCard key={service.id}  service={service} onDelete={handleDeleteService} onEdit={handleEditService}/>
+                    <ServiceCard key={service.id} service={service} onDelete={handleDeleteService} onEdit={handleEditService}/>
                     ))}
             </div>
 

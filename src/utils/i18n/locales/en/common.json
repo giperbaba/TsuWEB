@@ -96,7 +96,10 @@
     "image": "Upload image",
     "not_found": "Services not found",
     "success": "Service successfully created or edited",
-    "title_validation": "Please, enter a title"
+    "title_validation": "Please, enter a title",
+    "link_service": "Go to website",
+    "invalid_link": "Invalid service link",
+    "invalid_link_protocol": "Link must start with http:// or https://"
   },
   "events": {
     "events": "Events",
