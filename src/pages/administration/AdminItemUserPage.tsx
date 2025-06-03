@@ -89,7 +89,7 @@ export const AdminItemUserPage = () => {
             </div>
 
             <h2 className={`${styles.title_name}`}>
-                {profile?.lastName} {profile?.firstName} {profile?.patronymic}
+                {profile?.firstName} {profile?.lastName} {profile?.patronymic}
             </h2>
 
             <div className={styles.main_data_container}>

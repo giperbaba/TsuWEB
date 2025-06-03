@@ -78,7 +78,8 @@
     "type": "Тип должности",
     "direction": "Направление",
     "date_start": "Дата приема на работу",
-    "date_end": "Дата увольнения"
+    "date_end": "Дата увольнения",
+    "job_title": "Должность"
   },
   "services": {
     "services": "Полезные сервисы",
@@ -157,8 +158,20 @@
     "register_modal_title": "Регистрация на мероприятие"
   },
   "certificates": {
-    "certificates": "Справки"
+    "certificates": "Справки",
+    "order_certificate": "Заказ справки",
+    "education_level": "Уровень образования",
+    "status": "Статус",
+    "type": "Тип справки",
+    "view": "Вид справки",
+    "order": "Заказать",
+    "success": "Справка успешно заказана",
+    "error": "Данный тип справки находится в работе, заказать новую нельзя",
+    "no_certificates": "Справок нет",
+    "signature": "Подпись",
+    "save_certificate": "Справку"
   },
+
   "administration": {
     "administration": "Администрирование",
     "users": "Пользователи",

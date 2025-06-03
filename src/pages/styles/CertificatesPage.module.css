@@ -13,3 +13,49 @@
     color: #3A3A3A;
     padding: 30px 30px 30px 16px;
 }
+
+.title_name {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 32px;
+    leading-trim: Cap height;
+    line-height: 120%;
+    color: #3A3A3A;
+    margin-left: 16px;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-direction: row;
+    color: #3A3A3A;
+    font-size: 14px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    font-family: Raleway, serif;
+}
+
+.breadcrumb_link {
+    color: #3A3A3A;
+    text-decoration: none;
+    font-family: Raleway, serif;
+    font-size: 14px;
+    line-height: 120%;
+}
+
+.breadcrumb_link:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb_separator {
+    margin: 0 4px;
+    color: #3A3A3A;
+}
+
+.breadcrumb_active {
+    font-family: Raleway;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: #375FFF;
+    text-decoration: none;
+}

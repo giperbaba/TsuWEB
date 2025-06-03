@@ -160,7 +160,18 @@
     "register_modal_title": "Event Registration"
   },
   "certificates": {
-    "certificates": "Certificates"
+    "certificates": "Certificates",
+    "order_certificate": "Order a certificate",
+    "education_level": "Education level",
+    "status": "Status",
+    "type": "Certificate type",
+    "view": "Certificate type",
+    "order": "Order",
+    "success": "Certificate successfully ordered",
+    "error": "This certificate type is in progress, you cannot order a new one",
+    "no_certificates": "No certificates",
+    "signature": "Signature",
+    "save_certificate": "Certificate"
   },
   "administration": {
     "administration": "Administration",

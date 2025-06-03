@@ -153,7 +153,7 @@ export const EventsPage = () => {
 
     return (
         <div className={styles.admin_events_page}>
-            <h1 className={styles.title}>{t("administration.administration")}</h1>
+            <h1 className={styles.title}>{t("events.events")}</h1>
 
             <div className={styles.breadcrumb}>
                 <Link to="/profile" className={styles.breadcrumb_link}>
@@ -164,10 +164,6 @@ export const EventsPage = () => {
                     {t("administration.events")}
                 </Link>
             </div>
-
-            <h2 className={`${styles.title_name}`}>
-                {t("administration.events")}
-            </h2>
 
             <div className={styles.section}>
                 <p className={styles.base_text}>{t("events.search")}</p>

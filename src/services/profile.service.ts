@@ -50,7 +50,7 @@ interface DepartmentDto {
     email: string,
 }
 
-interface FileDto {
+export interface FileDto {
     id: string;
     name: string | null;
     extension: FileExtension;
