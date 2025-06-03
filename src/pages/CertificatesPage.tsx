@@ -1,7 +1,7 @@
 import styles from "./styles/CertificatesPage.module.css"
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {CertificateTabs} from "../components/profile/CertificateTabs.tsx";
+import {CertificateTabs} from "../components/certificates/CertificateTabs.tsx";
 import {useProfile} from "../context/ProfileContext.tsx";
 import {EducationEntryDto, EmployeeDto, ProfileService, UserType} from "../services/profile.service.ts";
 import {useEffect, useState} from "react";
@@ -22,12 +22,10 @@ export const CertificatesPage = () => {
         if (profile?.userTypes?.includes(UserType.Employee)) {
             ProfileService.getEmployeeInfo().then((response) => {
                 setEmployee(response.data)
-                console.log(response.data);
-                console.log(employee)
             })
         }
 
-    }, []);
+    }, [profile?.userTypes]);
 
     return(
         <div className={styles.certificate_page}>
@@ -47,7 +45,7 @@ export const CertificatesPage = () => {
                 {t("certificates.order_certificate")}
             </h2>
 
-            { profile  ?
+            { profile && profile.userTypes ?
                 <CertificateTabs type={profile.userTypes} educationEntries={entries ? entries : undefined} employee={employee ? employee : undefined} /> : <></> }
         </div>
     )

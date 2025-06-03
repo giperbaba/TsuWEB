@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../components/common/ui/input/ItemInput.module.css"; // используем стили из ItemInput
+import styles from "../../components/common/ui/input/ItemInput.module.css";
 
 const DADATA_API_KEY = "c64433eaa6345e778dfe222fecc3294fde54044e";
 const DADATA_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";

@@ -14,4 +14,6 @@ export interface LoginResultDto {
 
 export const AuthService = {
     login: (params: LoginDto) => instance.post<LoginResultDto>("/Auth/login", params),
+    logout: () => instance.post("/Auth/logout"),
+    revoke: () => instance.post("/Auth/revoke_all")
 }

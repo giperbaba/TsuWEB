@@ -60,9 +60,9 @@ export interface CertificateDto {
 }
 
 export interface CertificateCreateDto {
-    type: CertificateType;
-    staffType: CertificateStaffType;
-    userType: CertificateUserType;
+    type: CertificateType | null;
+    staffType: CertificateStaffType | null;
+    userType: UserType;
     educationEntryId: string | null;
     employeePostId: string | null;
     receiveType: CertificateReceiveType;

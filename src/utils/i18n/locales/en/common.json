@@ -5,7 +5,9 @@
     "save": "SAVE",
     "cancel": "CANCEL",
     "access_denied": "Access denied",
-    "not_logged_in": "You are not logged in"
+    "not_logged_in": "You are not logged in",
+    "logout": "Logout",
+    "success_logout": "Logout successfully"
   },
   "titles": {
     "login": "Login to account"
@@ -33,7 +35,6 @@
     "message": "Message",
     "warning": "Warning",
     "info": "Information",
-
     "logged_in": "You have successfully logged in to your account",
     "login_failed": "Failed to log in to your account",
     "unauthorized": "Please, authorize again"
@@ -171,7 +172,10 @@
     "error": "This certificate type is in progress, you cannot order a new one",
     "no_certificates": "No certificates",
     "signature": "Signature",
-    "save_certificate": "Certificate"
+    "save_certificate": "Certificate",
+    "student": "Student",
+    "employee": "Employee",
+    "user_type": "User type"
   },
   "administration": {
     "administration": "Administration",
@@ -183,6 +187,9 @@
     "placeholder": "Enter your full name",
     "no_users": "Users not found",
     "no_events": "Events not found",
-    "data": "Individual data"
+    "data": "Individual data",
+    "users_fish": "Manage accounts of all registered users of the platform",
+    "services_fish": "Create, view and configure useful platform services",
+    "events_fish": "Create, view and manage platform events"
   }
 }

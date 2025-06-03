@@ -40,6 +40,18 @@ export interface UserShortDto {
     avatar: FileResultDto
 }
 
+export interface ProfileUpdateDto {
+    lastName: string;
+    firstName: string;
+    patronymic: string;
+    birthDate: string;
+    gender: Gender;
+}
+
+export interface AvatarUpdateDto {
+    fileId: string;
+}
+
 export const UserService = {
     getUsers: (email: string = "",
                name: string = "",
@@ -47,5 +59,7 @@ export const UserService = {
                page: number = 1,
                pageSize: number = 20) => instance.get<ProfileShortDtoPagedListWithMetadata>('/User/list', {
                    params: { email, name, filterLastName, page, pageSize } } ),
-    getItemUser: (userId: string) => instance.get<ProfileDto>(`/User/${userId}`)
+    getItemUser: (userId: string) => instance.get<ProfileDto>(`/User/${userId}`),
+    updateUserProfile: (userId: string, data: ProfileUpdateDto) => instance.put(`/User/${userId}`, data),
+    updateUserAvatar: (userId: string, data: AvatarUpdateDto) => instance.put(`/User/${userId}/avatar`, data)
 };

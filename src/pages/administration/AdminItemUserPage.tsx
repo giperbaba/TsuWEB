@@ -2,9 +2,9 @@ import styles from "./styles/AdminUsersPage.module.css"
 import {Link, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import React, {useEffect, useState} from "react";
-import {ContactTypes, Gender, ProfileDto, ProfileService} from "../../services/profile.service.ts";
+import {ContactTypes, Gender, ProfileDto} from "../../services/profile.service.ts";
 import {FileService} from "../../services/file.service.ts";
-import {UserService} from "../../services/user.service.ts";
+import {AvatarUpdateDto, UserService} from "../../services/user.service.ts";
 import {AvatarCropModal} from "../../components/profile/AvatarCropModal.tsx";
 import defaultAvatar from "../../assets/jpg/default_avatar.jpg";
 
@@ -31,7 +31,12 @@ export const AdminItemUserPage = () => {
         formData.append('file', blob, 'avatar.jpg');
 
         const { data } = await FileService.upload(formData);
-        await ProfileService.updateAvatar(data.id);
+        if (profile?.id) {
+            const dto: AvatarUpdateDto  = {
+                fileId: data.id
+            }
+            await UserService.updateUserAvatar(profile?.id, dto);
+        }
         window.location.reload();
     };
 

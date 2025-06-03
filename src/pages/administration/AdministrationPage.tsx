@@ -12,19 +12,19 @@ export const AdministrationPage = () => {
     const cards = [
         {
             title: t("administration.users"),
-            description: t("administration.cardDescription"),
+            description: t("administration.users_fish"),
             icon: Users,
             path: "/admin/users",
         },
         {
             title: t("administration.services"),
-            description: t("administration.cardDescription"),
+            description: t("administration.services_fish"),
             icon: LinkIcon,
             path: "/admin/usefulservices",
         },
         {
             title: t("administration.events"),
-            description: t("administration.cardDescription"),
+            description: t("administration.events_fish"),
             icon: Events,
             path: "/admin/events",
         },
