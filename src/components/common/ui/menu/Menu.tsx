@@ -1,4 +1,4 @@
-import React, {JSX} from "react";
+import React, {JSX, useState} from "react";
 import styles from "./Menu.module.css";
 import MenuProfile from "../../../../assets/icons/MenuProfile";
 import MenuAdmin from "../../../../assets/icons/MenuAdmin";
@@ -23,6 +23,7 @@ export const Menu = () => {
     const location = useLocation();
     const { avatarUrl } = useProfile();
     const { isMobile, toggleMenu } = useMenu();
+    const [showLogoutButton, setShowLogoutButton] = useState(false);
 
     const token = getAccessToken();
     const parsedToken = token ? parseJwt(token) : null;
@@ -76,7 +77,8 @@ export const Menu = () => {
         <div className={`${styles.menu} ${open ? styles.menu_open : styles.menu_closed}`}>
             <div className={styles.toggleButtonWrapper}>
                 <div className={styles.menu_avatar_wrapper}>
-                    <img src={avatarUrl} alt="avatar" className={styles.menu_avatar}/>
+                    <img src={avatarUrl} alt="avatar" className={styles.menu_avatar}
+                    onClick={() => setShowLogoutButton(!showLogoutButton)} />
                 </div>
 
                 <div onClick={handleToggleMenu} className={styles.toggleButton}>
@@ -84,12 +86,12 @@ export const Menu = () => {
                 </div>
             </div>
             <div className={styles.toggleButtonWrapper}>
-                <button className={styles.logout_button}
+                {showLogoutButton ? <button className={styles.logout_button}
                         onClick={logout}
                 >
                     <p className={styles.logout_text}>{t("common.logout")}</p>
                     <SvgLogout/>
-                </button>
+                </button> : <></> }
             </div>
 
 

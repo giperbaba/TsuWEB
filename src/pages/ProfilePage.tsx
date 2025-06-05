@@ -41,7 +41,9 @@ export const ProfilePage = () => {
                         {profile.lastName} {profile.firstName} {profile.patronymic}
                     </h2>
                     <label>
-                        <img src={avatarUrl} alt="avatar" className={styles.avatar} style={{cursor: 'pointer'}}/>
+                        {avatarUrl && (
+                            <img src={avatarUrl} alt="avatar" className={styles.avatar} style={{cursor: 'pointer'}}/>
+                        )}
                         <input type="file" accept="image/*" onChange={handleImageChange} hidden/>
                     </label>
                     {selectedImage && (

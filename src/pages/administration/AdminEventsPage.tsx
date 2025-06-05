@@ -98,7 +98,8 @@ export const AdminEventsPage = () => {
             await request(
                EventService.deleteEvent(eventId),
                 {
-                    errorMessage: "Не удалось удалить мероприятие",
+                    successMessage: t("events.event_delete_success"),
+                    errorMessage: t("events.event_delete_error")
                 }
             );
             setEvents(prev => prev.filter(event => event.id !== eventId));

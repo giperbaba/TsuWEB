@@ -112,7 +112,6 @@ export const EventsPage = () => {
         }
     };
 
-    // Обновляем фильтрацию при изменении событий, профиля или авторизации
     useEffect(() => {
         setFilteredEvents(filterEvents(allEvents));
     }, [allEvents, profile, isAuth]);
@@ -122,7 +121,6 @@ export const EventsPage = () => {
         fetchEvents();
     }, [name, date, currentPage]);
 
-    // Отслеживаем загрузку профиля
     useEffect(() => {
         if (profile !== undefined) {
             setProfileLoading(false);
@@ -156,7 +154,7 @@ export const EventsPage = () => {
             <h1 className={styles.title}>{t("events.events")}</h1>
 
             <div className={styles.breadcrumb}>
-                <Link to="/profile" className={styles.breadcrumb_link}>
+                <Link to="/events" className={styles.breadcrumb_link}>
                     {t("common.main")}
                 </Link>
                 <span className={styles.breadcrumb_separator}> / </span>

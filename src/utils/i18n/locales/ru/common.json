@@ -157,7 +157,9 @@
     "success_register": "Вы успешно зарегистрированы!",
     "failed_register": "Не удалось зарегистрироваться",
     "FIO": "ФИО",
-    "register_modal_title": "Регистрация на мероприятие"
+    "register_modal_title": "Регистрация на мероприятие",
+    "event_delete_success": "Мероприятие удалено успешно",
+    "event_delete_error": "Не удалось удалить мероприятие"
   },
   "certificates": {
     "certificates": "Справки",

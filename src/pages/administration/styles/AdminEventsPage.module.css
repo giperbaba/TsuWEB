@@ -177,6 +177,7 @@
     padding: 24px 32px;
     background: #F9F9F9;
     width: 98%;
+    margin-left: 16px;
 }
 
 .base_text {
@@ -429,6 +430,7 @@
     gap: 16px;
     margin-top: 16px;
     margin-bottom: 16px;
+    margin-left: 16px;
 }
 
 @media (max-width: 768px) {
@@ -451,7 +453,7 @@
 
 @media (max-width: 600px) {
     .admin_events_page {
-       padding-left: 0px;
+       padding-left: 10px;
         padding-right: 16px;
     }
 
@@ -482,6 +484,8 @@
     .image {
         width: 340px;
     }
+    
+
 
 }
 

@@ -153,12 +153,15 @@
     "no_external_participants": "No external participants",
     "success_edit_status": "Status changed successfully",
     "error_edit_status": "Failed to change status",
-    "will participate": "I WILL PARTICIPATE",
+    "will_participate": "I WILL PARTICIPATE",
     "participate": "I PARTICIPATE",
     "success_register": "You have successfully registered!",
     "failed_register": "Failed to register",
     "FIO": "FGs",
-    "register_modal_title": "Event Registration"
+    "register_modal_title": "Event Registration",
+    "search_date": "Date of the event",
+    "event_delete_success": "Event deleted successfully",
+    "event_delete_error": "Failed to delete event"
   },
   "certificates": {
     "certificates": "Certificates",

@@ -63,6 +63,7 @@ export const EventItemPage = () => {
         try {
             const { data } = await EventService.checkIsUserParticipant(eventId);
             setIsParticipant(data.isParticipating);
+            setIsAuth(true)
         } catch (error: any) {
             if (error.response?.status === 401) {
                 setIsAuth(false);
@@ -84,6 +85,7 @@ export const EventItemPage = () => {
     const handleParticipateClick = async () => {
         if (!eventId) return;
 
+        await checkParticipation(eventId)
         if (isAuth) {
             await registerAsInnerParticipant(eventId);
         } else {
