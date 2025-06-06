@@ -57,5 +57,3 @@ export const ErrorPage = (props: ErrorPageProps) => {
     );
 }
 
-//переместиться обратно на главную страницу
-//настроить линии

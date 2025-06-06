@@ -32,7 +32,7 @@ export const LoginForm = () => {
                         setAccessToken(data.accessToken);
                         setRefreshToken(data.refreshToken);
                         notify("success", t("notifications.logged_in"));
-                        navigate("/profile");
+                        navigate("/events"); //Тут events, вместо profile, тк events главная стр
 
                     } else {
                         notify("error", t("notifications.login_failed"));

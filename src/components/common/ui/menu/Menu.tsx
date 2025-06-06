@@ -68,6 +68,8 @@ export const Menu = () => {
 
             navigate("/login");
 
+            //window.location.reload()
+
         } catch (error) {
             console.error("Ошибка при выходе из системы:", error);
         }
@@ -76,10 +78,11 @@ export const Menu = () => {
     return (
         <div className={`${styles.menu} ${open ? styles.menu_open : styles.menu_closed}`}>
             <div className={styles.toggleButtonWrapper}>
-                <div className={styles.menu_avatar_wrapper}>
+                {avatarUrl ? <div className={styles.menu_avatar_wrapper}>
                     <img src={avatarUrl} alt="avatar" className={styles.menu_avatar}
-                    onClick={() => setShowLogoutButton(!showLogoutButton)} />
-                </div>
+                         onClick={() => setShowLogoutButton(!showLogoutButton)}/>
+                </div> : <></>}
+
 
                 <div onClick={handleToggleMenu} className={styles.toggleButton}>
                     {isMobile ? <MenuLeft/> : open ? <MenuLeft/> : <MenuRight/>}
